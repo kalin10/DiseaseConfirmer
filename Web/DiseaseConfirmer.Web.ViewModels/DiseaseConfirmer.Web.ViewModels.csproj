@@ -23,4 +23,8 @@
     <ProjectReference Include="..\..\Services\DiseaseConfirmer.Services.Mapping\DiseaseConfirmer.Services.Mapping.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\" />
+  </ItemGroup>
+
 </Project>
