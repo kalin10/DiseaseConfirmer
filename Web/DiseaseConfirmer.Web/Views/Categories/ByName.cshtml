@@ -1,0 +1,16 @@
+﻿@using DiseaseConfirmer.Common
+@model DiseaseConfirmer.Web.ViewModels.Categories.CategoryViewModel
+
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    @foreach (var disease in Model.Diseases)
+    {
+        <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>
+        <p>@disease.Description</p>
+    }
+
+</div>

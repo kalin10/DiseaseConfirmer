@@ -14,7 +14,7 @@
 
         public string Cause { get; set; }
 
-        public string CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
     }

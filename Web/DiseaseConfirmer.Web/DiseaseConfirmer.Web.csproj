@@ -36,4 +36,9 @@
     <ProjectReference Include="..\DiseaseConfirmer.Web.Infrastructure\DiseaseConfirmer.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\DiseaseConfirmer.Web.ViewModels\DiseaseConfirmer.Web.ViewModels.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Views\Dashboard\" />
+    <Folder Include="Views\Diseases\" />
+  </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
     using System.Diagnostics;
+
     using DiseaseConfirmer.Data;
     using DiseaseConfirmer.Web.ViewModels;
 
@@ -8,11 +9,9 @@
 
     public class HomeController : BaseController
     {
-        private readonly ApplicationDbContext db;
 
-        public HomeController(ApplicationDbContext db)
+        public HomeController()
         {
-            this.db = db;
         }
 
         public IActionResult Index()

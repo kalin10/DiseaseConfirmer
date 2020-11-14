@@ -33,7 +33,7 @@
                     Symptoms = disease.Symptoms,
                     Cause = disease.Cause,
                     Тreatment = disease.Тreatment,
-                    CategoryId = tummorsCategory.Id.ToString(),
+                    CategoryId = tummorsCategory.Id,
                     Category = tummorsCategory,
                 });
             }

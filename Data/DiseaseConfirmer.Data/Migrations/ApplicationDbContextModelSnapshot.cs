@@ -217,10 +217,7 @@ namespace DiseaseConfirmer.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("CategoryId1")
+                    b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Cause")
@@ -252,7 +249,7 @@ namespace DiseaseConfirmer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId1");
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("IsDeleted");
 
@@ -420,7 +417,9 @@ namespace DiseaseConfirmer.Data.Migrations
                 {
                     b.HasOne("DiseaseConfirmer.Data.Models.Category", "Category")
                         .WithMany("Diseases")
-                        .HasForeignKey("CategoryId1");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DiseaseConfirmer.Data.Models.Inquiry", b =>
