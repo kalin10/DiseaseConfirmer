@@ -39,6 +39,5 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Views\Dashboard\" />
-    <Folder Include="Views\Diseases\" />
   </ItemGroup>
 </Project>

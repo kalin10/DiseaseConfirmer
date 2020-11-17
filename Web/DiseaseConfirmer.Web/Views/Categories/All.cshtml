@@ -5,11 +5,12 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName! <a href="/Categories/Add" class="btn btn-secondary btn-sm">Create Category</a></h1>
+    
     @foreach (var category in Model.Categories)
     {
-            <a href="@category.Url" class="btn btn-block btn-primary">@category.Name</a>
-            <p>@category.Description</p>
+        <a href="@category.Url" class="btn btn-block btn-primary">@category.Name</a>
+        <p>@category.Description</p>
     }
 
 </div>

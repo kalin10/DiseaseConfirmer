@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Mapping;
@@ -14,6 +14,20 @@
         public CategoriesService(IDeletableEntityRepository<Category> categoriesRepository)
         {
             this.categoriesRepository = categoriesRepository;
+        }
+
+        public async Task<int> CreateAsync(string name, string description)
+        {
+            var category = new Category
+            {
+                Name = name,
+                Description = description,
+            };
+
+            await this.categoriesRepository.AddAsync(category);
+            await this.categoriesRepository.SaveChangesAsync();
+
+            return category.Id;
         }
 
         public IEnumerable<T> GetAll<T>(int? count = null)
@@ -33,6 +47,11 @@
                 .To<T>().FirstOrDefault();
 
             return category;
+        }
+
+        public int GetIdByName(string name)
+        {
+            return this.categoriesRepository.All().FirstOrDefault(x => x.Name == name).Id;
         }
     }
 }

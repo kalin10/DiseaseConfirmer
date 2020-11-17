@@ -9,6 +9,6 @@
 
         public string Description { get; set; }
 
-        public string Url => $"/f/{this.Name.Replace(' ', '-')}";
+        public string Url => $"/d/{this.Name.Replace(' ', '-')}";
     }
 }

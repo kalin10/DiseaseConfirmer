@@ -1,6 +1,7 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
     using System.Linq;
+    using System.Threading.Tasks;
 
     using DiseaseConfirmer.Data;
     using DiseaseConfirmer.Data.Common.Repositories;
@@ -21,6 +22,19 @@
             this.diseasesService = diseasesService;
         }
 
+        public IActionResult Add()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(CategoryCreateInputModel input)
+        {
+            var categoryId = await this.categoriesService.CreateAsync(input.Name, input.Description);
+
+            return this.Redirect("/Categories/All");
+        }
+
         public IActionResult All()
         {
             var viewModel = new CategoriesViewModel();
@@ -34,8 +48,10 @@
 
         public IActionResult ByName(string name)
         {
-            var viewModel = new CategoryViewModel();
-            var diseases = this.diseasesService.GetAllByCategory<DiseaseInCategoryViewModel>(name)
+            string changedName = name.Replace('-', ' ');
+
+            var viewModel = this.categoriesService.GetByName<CategoryViewModel>(changedName);
+            var diseases = this.diseasesService.GetAllByCategory<DiseaseInCategoryViewModel>(changedName)
                 .ToList();
 
             viewModel.Diseases = diseases;

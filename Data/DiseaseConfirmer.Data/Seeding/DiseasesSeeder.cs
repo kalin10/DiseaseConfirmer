@@ -20,6 +20,8 @@
             {
                 ("Brain Tumor", "A brain tumor is a mass or growth of abnormal cells in your brain.", "Symptoms", "Тreatment", "Cause"),
                 ("Leukemia", "Cancer that starts in the bone marrow.", "Symptoms", "Тreatment", "Cause"),
+                ("Carcinoid", "A carcinoid is a slow-growing type of neuroendocrine tumor originating in the cells of the neuroendocrine system. ", "Symptoms", "Тreatment", "Cause"),
+                ("Bladder cancer", "Bladder cancer is any of several types of cancer arising from the tissues of the urinary bladder.", "Symptoms", "Тreatment", "Cause"),
             };
 
             var tummorsCategory = dbContext.Categories.FirstOrDefault(x => x.Name == "Tumors");

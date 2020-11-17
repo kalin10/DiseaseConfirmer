@@ -15,6 +15,8 @@
 
         public string Description { get; set; }
 
+        public string AddDiseaseButtonUrl => $"/d/{this.Name?.Replace(' ', '-')}/Add";
+
         public IEnumerable<DiseaseInCategoryViewModel> Diseases { get; set; }
     }
 }

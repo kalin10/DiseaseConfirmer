@@ -6,7 +6,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName! <a href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a></h1>
     @foreach (var disease in Model.Diseases)
     {
         <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>

@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-
+    using System.Threading.Tasks;
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Mapping;
@@ -14,6 +14,24 @@
         public DiseasesService(IDeletableEntityRepository<Disease> diseasesRepository)
         {
             this.diseasesRepository = diseasesRepository;
+        }
+
+        public async Task<int> CreateAsync(int categoryId, string name, string symptoms, string cause, string treatment, string description)
+        {
+            var disease = new Disease
+            {
+                Name = name,
+                Symptoms = symptoms,
+                Description = description,
+                Cause = cause,
+                CategoryId = categoryId,
+                Тreatment = treatment,
+            };
+
+            await this.diseasesRepository.AddAsync(disease);
+            await this.diseasesRepository.SaveChangesAsync();
+
+            return disease.Id;
         }
 
         public IEnumerable<T> GetAllByCategory<T>(string categoryName, int? count = null)
