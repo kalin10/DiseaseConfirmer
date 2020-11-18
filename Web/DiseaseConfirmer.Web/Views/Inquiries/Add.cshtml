@@ -1,0 +1,29 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiriesCreateInputModel
+@using DiseaseConfirmer.Common
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+<form method="post" asp-action="Add">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+
+    <div>
+        <label asp-for="Heading">Heading:</label>
+        <textarea asp-for="Heading" class="form-control"></textarea>
+    </div>
+
+    <div>
+        <label asp-for="Symptoms">Symptoms:</label>
+        <textarea asp-for="Symptoms" class="form-control"></textarea>
+    </div>
+
+    <div>
+        <label asp-for="DetailedInformation">Detailed Information:</label>
+        <textarea asp-for="DetailedInformation" class="form-control"></textarea>
+    </div>
+
+    <div>
+        <p></p>
+        <button type="submit" class="btn btn-secondary">Submit</button>
+    </div>
+
+</form>

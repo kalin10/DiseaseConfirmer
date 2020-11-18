@@ -33,7 +33,6 @@
 
             var diseasecategoryId = await this.diseasesService
                 .CreateAsync(categoryId, input.Name, input.Symptoms, input.Cause, input.Тreatment, input.Description);
-            //int categoryId, string name, string symptoms, string cause, string treatment, string description
 
             return this.Redirect("/Categories/All");
         }

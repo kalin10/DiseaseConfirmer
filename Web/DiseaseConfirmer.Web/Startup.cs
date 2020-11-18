@@ -41,11 +41,6 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
-            //services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
-            //     .AddDefaultUI()
-            //     .AddEntityFrameworkStores<ApplicationDbContext>()
-            //     .AddDefaultTokenProviders();
-
             services.Configure<CookiePolicyOptions>(
                 options =>
                     {
@@ -71,6 +66,7 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ICategoriesService, CategoriesService>();
             services.AddTransient<IDiseasesService, DiseasesService>();
+            services.AddTransient<IInquiriesService, InquiriesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
