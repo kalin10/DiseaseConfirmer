@@ -54,5 +54,14 @@
 
             return this.Redirect("/Inquiries/All");
         }
+
+        public IActionResult ByHeading(string name)
+        {
+            string changedName = name.Replace('-', ' ');
+
+            var viewModel = this.inquiriesService.GetByHeading<InquiryViewModel>(changedName);
+
+            return this.View(viewModel);
+        }
     }
 }

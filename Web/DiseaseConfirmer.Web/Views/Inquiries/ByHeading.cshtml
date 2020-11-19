@@ -1,0 +1,15 @@
+﻿@using DiseaseConfirmer.Common
+@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiryViewModel
+
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <p>@Model.CreatedOn</p>
+    <p>@Model.Heading</p>
+    <p>@Model.Symptoms</p>
+    <p>@Model.DetailedInformation</p>
+    <p>@Model.UserUserName</p>
+</div>

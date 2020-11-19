@@ -45,7 +45,10 @@
 
         public T GetByHeading<T>(string heading)
         {
-            throw new System.NotImplementedException();
+            var inquiry = this.inquiriesRepository.All().Where(x => x.Heading == heading)
+                .To<T>().FirstOrDefault();
+
+            return inquiry;
         }
     }
 }
