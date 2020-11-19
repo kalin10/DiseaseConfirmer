@@ -7,6 +7,7 @@
 
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Inquiries;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;

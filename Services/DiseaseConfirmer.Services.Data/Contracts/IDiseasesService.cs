@@ -1,4 +1,4 @@
-﻿namespace DiseaseConfirmer.Services.Data
+﻿namespace DiseaseConfirmer.Services.Data.Contracts
 {
     using System.Collections.Generic;
     using System.Threading.Tasks;

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using DiseaseConfirmer.Services.Data;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using DiseaseConfirmer.Web.ViewModels.Diseases;
     using Microsoft.AspNetCore.Mvc;

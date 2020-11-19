@@ -7,6 +7,7 @@
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,6 @@
             this.diseasesService = diseasesService;
         }
 
-        
         public IActionResult Add()
         {
             return this.View();

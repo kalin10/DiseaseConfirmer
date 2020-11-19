@@ -9,6 +9,7 @@
     using DiseaseConfirmer.Data.Repositories;
     using DiseaseConfirmer.Data.Seeding;
     using DiseaseConfirmer.Services.Data;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
     using DiseaseConfirmer.Services.Messaging;
     using DiseaseConfirmer.Web.ViewModels;

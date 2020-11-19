@@ -6,11 +6,12 @@
 
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
 
     public class InquiriesService : IInquiriesService
     {
-        IDeletableEntityRepository<Inquiry> inquiriesRepository;
+        private readonly IDeletableEntityRepository<Inquiry> inquiriesRepository;
 
         public InquiriesService(IDeletableEntityRepository<Inquiry> inquiriesRepository)
         {

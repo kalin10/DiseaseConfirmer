@@ -6,6 +6,7 @@
 
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
 
     public class CategoriesService : ICategoriesService
