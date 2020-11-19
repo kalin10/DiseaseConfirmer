@@ -34,11 +34,20 @@
             return inquiry.Id;
         }
 
-        public IEnumerable<T> GetAll<T>()
+        public IEnumerable<T> GetAll<T>(string userId = null)
         {
-            IQueryable<Inquiry> query =
-                this.inquiriesRepository.All()
+            IQueryable<Inquiry> query;
+            if (!string.IsNullOrEmpty(userId))
+            {
+                query = this.inquiriesRepository.All()
+                    .Where(x => x.UserId == userId)
+                    .OrderBy(x => x.CreatedOn);
+            }
+            else
+            {
+                query = this.inquiriesRepository.All()
                                         .OrderBy(x => x.CreatedOn);
+            }
 
             return query.To<T>().ToList();
         }

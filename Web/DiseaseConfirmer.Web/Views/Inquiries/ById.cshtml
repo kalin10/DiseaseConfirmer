@@ -1,0 +1,12 @@
+﻿@using DiseaseConfirmer.Common
+@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiriesViewModel
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Review Your Inquiries!<a href="/Inquiries/Add" class="btn btn-secondary btn-sm">Create Inquiry</a></h1>
+
+    @Html.Partial("_DisplayInquiriesPartial", Model)
+
+</div>

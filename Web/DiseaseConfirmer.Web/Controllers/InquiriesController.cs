@@ -33,6 +33,20 @@
             return this.View(viewModel);
         }
 
+        public async Task<IActionResult> ById()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            var userId = user.Id;
+
+            var viewModel = new InquiriesViewModel();
+            var inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(userId);
+
+            viewModel.Inqueries = inqueries;
+
+            return this.View(viewModel);
+        }
+
         public IActionResult Add()
         {
             return this.View();

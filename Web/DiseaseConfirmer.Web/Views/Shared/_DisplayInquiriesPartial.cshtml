@@ -1,0 +1,7 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiriesViewModel
+
+@foreach (var inquiry in Model.Inqueries)
+{
+    <a href="@inquiry.Url" class="btn btn-block btn-primary">@inquiry.Heading</a>
+    <p><a style="float: left">Symptoms: @inquiry.Symptoms</a><a style="float: right">@inquiry.CreatedOn.ToString("g")</a><br /></p>
+}

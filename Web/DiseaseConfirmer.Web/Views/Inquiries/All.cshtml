@@ -5,12 +5,8 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName! <a href="/Inquiries/Add" class="btn btn-secondary btn-sm">Create Inquiry</a></h1>
+    <h1 class="display-4">Review Inquiries!</h1>
 
-    @foreach (var inquiry in Model.Inqueries)
-    {
-        <a href="@inquiry.Url" class="btn btn-block btn-primary">@inquiry.Heading</a>
-        <p><a style="float: left">Symptoms: @inquiry.Symptoms</a><a style="float: right">@inquiry.CreatedOn.ToString("g")</a><br /></p>
-    }
+    @Html.Partial("_DisplayInquiriesPartial",Model)
 
 </div>

@@ -6,7 +6,7 @@
 
     public interface IInquiriesService
     {
-        IEnumerable<T> GetAll<T>();
+        IEnumerable<T> GetAll<T>(string userId = null);
 
         T GetByHeading<T>(string heading);
 
