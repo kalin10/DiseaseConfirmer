@@ -10,7 +10,7 @@
     @foreach (var disease in Model.Diseases)
     {
         <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>
-        <p>@disease.Description</p>
+        <p style="text-align:left">@disease.ShortDescription</p>
     }
 
 </div>

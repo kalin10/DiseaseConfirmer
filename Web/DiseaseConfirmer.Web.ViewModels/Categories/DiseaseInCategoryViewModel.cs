@@ -9,6 +9,11 @@
 
         public string Description { get; set; }
 
+        public string ShortDescription =>
+            this.Description?.Length > 50
+             ? this.Description.Substring(0, 50) + "..."
+            : this.Description;
+
         public string Url => $"/d/{this.Name.Replace(' ', '-')}";
     }
 }

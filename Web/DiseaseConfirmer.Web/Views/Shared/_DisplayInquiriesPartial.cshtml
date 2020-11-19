@@ -3,5 +3,5 @@
 @foreach (var inquiry in Model.Inqueries)
 {
     <a href="@inquiry.Url" class="btn btn-block btn-primary">@inquiry.Heading</a>
-    <p><a style="float: left">Symptoms: @inquiry.Symptoms</a><a style="float: right">@inquiry.CreatedOn.ToString("g")</a><br /></p>
+    <p><a style="float: left">Symptoms: @inquiry.ShortSymptoms</a><a style="float: right"><i class="far fa-calendar-alt"></i> @inquiry.CreatedOn.ToString("g")</a><br /></p>
 }
