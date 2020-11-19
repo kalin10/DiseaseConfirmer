@@ -45,7 +45,9 @@
 
         public T GetByName<T>(string name)
         {
-            var category = this.categoriesRepository.All().Where(x => x.Name == name)
+            string changedName = name.Replace('-', ' ');
+
+            var category = this.categoriesRepository.All().Where(x => x.Name == changedName)
                 .To<T>().FirstOrDefault();
 
             return category;

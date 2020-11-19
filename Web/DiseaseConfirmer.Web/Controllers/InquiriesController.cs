@@ -57,9 +57,7 @@
 
         public IActionResult ByHeading(string name)
         {
-            string changedName = name.Replace('-', ' ');
-
-            var viewModel = this.inquiriesService.GetByHeading<InquiryViewModel>(changedName);
+            var viewModel = this.inquiriesService.GetByHeading<InquiryViewModel>(name);
 
             return this.View(viewModel);
         }

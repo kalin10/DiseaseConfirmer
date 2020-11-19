@@ -28,9 +28,7 @@
         [HttpPost]
         public async Task<IActionResult> Add(DiseaseCreateInputModel input, string categoryName)
         {
-            string changedName = categoryName.Replace('-', ' ');
-
-            var categoryId = this.categoriesService.GetIdByName(changedName);
+            var categoryId = this.categoriesService.GetIdByName(categoryName);
 
             var diseasecategoryId = await this.diseasesService
                 .CreateAsync(categoryId, input.Name, input.Symptoms, input.Cause, input.Тreatment, input.Description);

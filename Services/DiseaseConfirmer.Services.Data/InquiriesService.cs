@@ -45,7 +45,9 @@
 
         public T GetByHeading<T>(string heading)
         {
-            var inquiry = this.inquiriesRepository.All().Where(x => x.Heading == heading)
+            string changedHeading = heading.Replace('-', ' ');
+
+            var inquiry = this.inquiriesRepository.All().Where(x => x.Heading == changedHeading)
                 .To<T>().FirstOrDefault();
 
             return inquiry;

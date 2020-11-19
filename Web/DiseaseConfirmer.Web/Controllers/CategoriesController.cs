@@ -49,10 +49,8 @@
 
         public IActionResult ByName(string name)
         {
-            string changedName = name.Replace('-', ' ');
-
-            var viewModel = this.categoriesService.GetByName<CategoryViewModel>(changedName);
-            var diseases = this.diseasesService.GetAllByCategory<DiseaseInCategoryViewModel>(changedName)
+            var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
+            var diseases = this.diseasesService.GetAllByCategory<DiseaseInCategoryViewModel>(name)
                 .ToList();
 
             viewModel.Diseases = diseases;

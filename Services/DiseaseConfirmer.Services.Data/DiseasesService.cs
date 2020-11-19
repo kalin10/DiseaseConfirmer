@@ -38,8 +38,10 @@
 
         public IEnumerable<T> GetAllByCategory<T>(string categoryName, int? count = null)
         {
+            string changedName = categoryName.Replace('-', ' ');
+
             IQueryable<Disease> query = this.diseasesRepository.All()
-                .Where(x => x.Category.Name == categoryName)
+                .Where(x => x.Category.Name == changedName)
                 .OrderBy(x => x.Name);
             if (count.HasValue)
             {
@@ -51,7 +53,9 @@
 
         public T GetByName<T>(string name)
         {
-            var disease = this.diseasesRepository.All().Where(x => x.Name == name)
+            string changedName = name.Replace('-', ' ');
+
+            var disease = this.diseasesRepository.All().Where(x => x.Name == changedName)
                 .To<T>().FirstOrDefault();
 
             return disease;
