@@ -31,6 +31,11 @@
         [HttpPost]
         public async Task<IActionResult> Add(CategoryCreateInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var categoryId = await this.categoriesService.CreateAsync(input.Name, input.Description);
 
             return this.Redirect("/Categories/All");

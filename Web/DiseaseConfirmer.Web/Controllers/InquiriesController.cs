@@ -56,6 +56,7 @@
         public async Task<IActionResult> Add(InquiriesCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);

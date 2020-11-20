@@ -28,6 +28,11 @@
         [HttpPost]
         public async Task<IActionResult> Add(DiseaseCreateInputModel input, string categoryName)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
             var categoryId = this.categoriesService.GetIdByName(categoryName);
 
             var diseasecategoryId = await this.diseasesService
