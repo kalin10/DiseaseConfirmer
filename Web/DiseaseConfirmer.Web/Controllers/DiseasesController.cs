@@ -7,6 +7,7 @@
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using DiseaseConfirmer.Web.ViewModels.Diseases;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class DiseasesController : Controller
@@ -20,12 +21,14 @@
             this.categoriesService = categoriesService;
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(DiseaseCreateInputModel input, string categoryName)
         {
             if (!this.ModelState.IsValid)

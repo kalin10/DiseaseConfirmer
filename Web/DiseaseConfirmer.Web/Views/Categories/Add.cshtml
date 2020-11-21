@@ -8,16 +8,18 @@
 
     <div>
         <label asp-for="Name">Name:</label>
-        <textarea asp-for="Name" class="form-control"></textarea>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div>
         <label asp-for="Description">Description:</label>
         <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
     <div>
-        <p></p>
+        <hr />
         <button type="submit" class="btn btn-success">Submit</button>
     </div>
 

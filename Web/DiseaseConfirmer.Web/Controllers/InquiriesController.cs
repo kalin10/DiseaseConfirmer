@@ -9,6 +9,7 @@
     using DiseaseConfirmer.Services.Data;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Inquiries;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public async Task<IActionResult> ById()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -47,12 +49,14 @@
             return this.View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Add(InquiriesCreateInputModel input)
         {
             var user = await this.userManager.GetUserAsync(this.User);
