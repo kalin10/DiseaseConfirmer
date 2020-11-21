@@ -8,7 +8,7 @@
     {
         IEnumerable<T> GetAll<T>(string userId = null);
 
-        T GetByHeading<T>(string heading);
+        T GetById<T>(int id);
 
         Task<int> CreateAsync(string heading, string symptoms, string detailedInformation, string userId);
     }

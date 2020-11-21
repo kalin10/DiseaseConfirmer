@@ -1,12 +1,15 @@
 ﻿@using DiseaseConfirmer.Common
-@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiriesViewModel
+@model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiryViewModel
+
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Review Your Inquiries!<a href="/Inquiries/Add" class="btn btn-secondary btn-sm">Create Inquiry</a></h1>
-
-    @Html.Partial("_DisplayInquiriesPartial", Model)
-
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    <p><i class="far fa-calendar-alt"></i> @Model.CreatedOn</p>
+    <p><i class="fas fa-heading"></i> @Model.Heading</p>
+    <p><i class="fas fa-info"></i> @Model.Symptoms</p>
+    <p><i class="fas fa-exclamation"></i> @Model.DetailedInformation</p>
+    <p><i class="fas fa-user"></i> @Model.UserUserName</p>
 </div>

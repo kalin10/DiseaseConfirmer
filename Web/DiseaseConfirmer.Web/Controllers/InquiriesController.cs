@@ -35,7 +35,7 @@
         }
 
         [Authorize]
-        public async Task<IActionResult> ById()
+        public async Task<IActionResult> AllById()
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
@@ -74,9 +74,13 @@
             return this.Redirect("/Inquiries/All");
         }
 
-        public IActionResult ByHeading(string name)
+        public IActionResult ById(int id)
         {
-            var viewModel = this.inquiriesService.GetByHeading<InquiryViewModel>(name);
+            var viewModel = this.inquiriesService.GetById<InquiryViewModel>(id);
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }

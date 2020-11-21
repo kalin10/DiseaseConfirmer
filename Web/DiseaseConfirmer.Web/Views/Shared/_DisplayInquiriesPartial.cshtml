@@ -2,6 +2,6 @@
 
 @foreach (var inquiry in Model.Inqueries)
 {
-    <a href="@inquiry.Url" class="btn btn-block btn-primary">@inquiry.Heading</a>
+<h4 class="media-heading"><a asp-controller="Inquiries" asp-action="ById" asp-route-id="@inquiry.Id">@inquiry.Heading</a></h4>
     <p><a style="float: left">Symptoms: @inquiry.ShortSymptoms</a><a style="float: right"><i class="far fa-calendar-alt"></i> @inquiry.CreatedOn.ToString("g")</a><br /></p>
 }

@@ -7,6 +7,8 @@
 
     public class IndexInquiryViewModel : IMapFrom<Inquiry>
     {
+        public int Id { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string Heading { get; set; }
@@ -18,6 +20,6 @@
              ? this.Symptoms.Substring(0, 50) + "..."
             : this.Symptoms;
 
-        public string Url => $"/i/{this.Heading?.Replace(' ', '-')}";
+        //public string Url => $"/i/{this.Heading?.Replace(' ', '-')}";
     }
 }

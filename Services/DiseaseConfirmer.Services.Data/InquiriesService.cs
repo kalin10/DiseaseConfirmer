@@ -52,11 +52,9 @@
             return query.To<T>().ToList();
         }
 
-        public T GetByHeading<T>(string heading)
+        public T GetById<T>(int id)
         {
-            string changedHeading = heading.Replace('-', ' ');
-
-            var inquiry = this.inquiriesRepository.All().Where(x => x.Heading == changedHeading)
+            var inquiry = this.inquiriesRepository.All().Where(x => x.Id == id)
                 .To<T>().FirstOrDefault();
 
             return inquiry;
