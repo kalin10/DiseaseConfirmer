@@ -7,9 +7,23 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-        <p>@Model.Name</p>
-        <p>@Model.Description</p>
-        <p>@Model.Symptoms</p>
-        <p>@Model.Cause</p>
-        <p>@Model.Тreatment</p>
+    <h2><strong>@Model.Name</strong></h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+            Description: <br>
+            <p><i class="fas fa-info"></i> @Model.Description</p>
+        </li>
+        <li class="list-group-item">
+            Symptoms: <br>
+            <p>@Model.Symptoms</p>
+        </li>
+        <li class="list-group-item">
+            Cause: <br>
+            <p> @Model.Cause</p>
+        </li>
+        <li class="list-group-item">
+            Тreatment: <br>
+            <p>@Model.Тreatment</p>
+        </li>
+    </ul>
 </div>

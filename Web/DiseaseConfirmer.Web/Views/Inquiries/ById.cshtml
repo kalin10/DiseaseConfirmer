@@ -7,9 +7,32 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p><i class="far fa-calendar-alt"></i> @Model.CreatedOn</p>
-    <p><i class="fas fa-heading"></i> @Model.Heading</p>
-    <p><i class="fas fa-info"></i> @Model.Symptoms</p>
-    <p><i class="fas fa-exclamation"></i> @Model.DetailedInformation</p>
-    <p><i class="fas fa-user"></i> @Model.UserUserName</p>
+</div>
+
+<div class="container-fluid mt-100">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <div class="media flex-wrap w-100 align-items-center">
+                        <div class="media-body ml-3">
+                            <a><i class="fas fa-user"></i> @Model.UserUserName</a>
+                        </div>
+                        <div class="text-muted small ml-3">
+                            <div><strong><i class="far fa-calendar-alt"></i> @Model.CreatedOn</strong></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>@Model.Heading</h3>
+                    <p><strong>Symptoms:</strong> @Model.Symptoms</p>
+                    <p><strong>Things that can be ralates:</strong> @Model.DetailedInformation</p>
+                </div>
+                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                    Upvote
+                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary"><i class="ion ion-md-create"></i>&nbsp;Comment</button> </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
