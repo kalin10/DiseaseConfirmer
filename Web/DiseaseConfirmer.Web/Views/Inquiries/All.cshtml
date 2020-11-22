@@ -31,7 +31,7 @@
 
         @for (int i = this.Model.CurrentPage - 2; i <= this.Model.CurrentPage + 2; i++)
         {
-            if (i > 0 && i <= this.Model.PagesCount)
+            @if (i > 0 && i <= this.Model.PagesCount)
             {
                 var active = i == this.Model.CurrentPage ? "active" : string.Empty;
                 <li class="page-item @active">
