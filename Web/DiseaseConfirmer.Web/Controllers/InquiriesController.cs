@@ -28,46 +28,42 @@
 
         public IActionResult All(int page = 1)
         {
-            var viewModel = new InquiriesViewModel();
-
-            var inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage);
-
-            viewModel.Inqueries = inqueries;
-
-            var count = this.inquiriesService.GetCount();
-
-            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
-            if (viewModel.PagesCount == 0)
+            if (page <= 0)
             {
-                viewModel.PagesCount = 1;
+                return this.NotFound();
             }
 
-            viewModel.CurrentPage = page;
-
+            var viewModel = new InquiriesViewModel
+            {
+                ItemsPerPage = ItemsPerPage,
+                CurrentPage = page,
+                InquiriesCount = this.inquiriesService.GetCount(),
+                Inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(page,ItemsPerPage),
+            };
             return this.View(viewModel);
         }
+
+
 
         [Authorize]
         public async Task<IActionResult> AllById(int page = 1)
         {
+            if (page <= 0)
+            {
+                return this.NotFound();
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var userId = user.Id;
 
-            var viewModel = new InquiriesViewModel();
-            var inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(ItemsPerPage, (page - 1) * ItemsPerPage, userId);
-
-            viewModel.Inqueries = inqueries;
-
-            var count = this.inquiriesService.GetCount(userId);
-
-            viewModel.PagesCount = (int)Math.Ceiling((double)count / ItemsPerPage);
-            if (viewModel.PagesCount == 0)
+            var viewModel = new InquiriesViewModel
             {
-                viewModel.PagesCount = 1;
-            }
-
-            viewModel.CurrentPage = page;
+                ItemsPerPage = ItemsPerPage,
+                CurrentPage = page,
+                InquiriesCount = this.inquiriesService.GetCount(userId),
+                Inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(page, ItemsPerPage, userId),
+            };
 
             return this.View(viewModel);
         }

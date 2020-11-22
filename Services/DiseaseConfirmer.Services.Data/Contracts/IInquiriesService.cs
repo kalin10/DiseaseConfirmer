@@ -6,7 +6,7 @@
 
     public interface IInquiriesService
     {
-        IEnumerable<T> GetAll<T>(int? take = null, int skip = 0, string userId = null);
+        IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 4, string userId = null);
 
         T GetById<T>(int id);
 

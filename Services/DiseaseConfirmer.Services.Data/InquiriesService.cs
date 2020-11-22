@@ -34,7 +34,7 @@
             return inquiry.Id;
         }
 
-        public IEnumerable<T> GetAll<T>(int? take = null, int skip = 0, string userId = null)
+        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 4, string userId = null)
         {
             IQueryable<Inquiry> query;
             if (!string.IsNullOrEmpty(userId))
@@ -42,18 +42,15 @@
                 query = this.inquiriesRepository.All()
                     .Where(x => x.UserId == userId)
                     .OrderBy(x => x.CreatedOn)
-                    .Skip(skip);
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
             }
             else
             {
                 query = this.inquiriesRepository.All()
-                                        .OrderBy(x => x.CreatedOn)
-                                        .Skip(skip);
-            }
-
-            if (take.HasValue)
-            {
-                query = query.Take(take.Value);
+                    .OrderBy(x => x.CreatedOn)
+                    .Skip((page - 1) * itemsPerPage)
+                    .Take(itemsPerPage);
             }
 
             return query.To<T>().ToList();
