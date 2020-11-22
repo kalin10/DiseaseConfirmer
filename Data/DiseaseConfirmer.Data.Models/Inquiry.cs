@@ -1,8 +1,7 @@
 ﻿namespace DiseaseConfirmer.Data.Models
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
+    using System.ComponentModel.DataAnnotations;
 
     using DiseaseConfirmer.Data.Common.Models;
 
@@ -19,6 +18,7 @@
 
         public string DetailedInformation { get; set; }
 
+        [Required]
         public string UserId { get; set; }
 
         public virtual ApplicationUser User { get; set; }

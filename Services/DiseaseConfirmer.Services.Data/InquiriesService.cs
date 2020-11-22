@@ -34,19 +34,26 @@
             return inquiry.Id;
         }
 
-        public IEnumerable<T> GetAll<T>(string userId = null)
+        public IEnumerable<T> GetAll<T>(int? take = null, int skip = 0, string userId = null)
         {
             IQueryable<Inquiry> query;
             if (!string.IsNullOrEmpty(userId))
             {
                 query = this.inquiriesRepository.All()
                     .Where(x => x.UserId == userId)
-                    .OrderBy(x => x.CreatedOn);
+                    .OrderBy(x => x.CreatedOn)
+                    .Skip(skip);
             }
             else
             {
                 query = this.inquiriesRepository.All()
-                                        .OrderBy(x => x.CreatedOn);
+                                        .OrderBy(x => x.CreatedOn)
+                                        .Skip(skip);
+            }
+
+            if (take.HasValue)
+            {
+                query = query.Take(take.Value);
             }
 
             return query.To<T>().ToList();
@@ -58,6 +65,22 @@
                 .To<T>().FirstOrDefault();
 
             return inquiry;
+        }
+
+        public int GetCount(string userId = null)
+        {
+            IQueryable<Inquiry> query = this.inquiriesRepository.All();
+            int count;
+            if (userId != null)
+            {
+                count = query.Count(x => x.UserId == userId);
+            }
+            else
+            {
+                count = query.Count();
+            }
+
+            return count;
         }
     }
 }

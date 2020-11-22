@@ -50,6 +50,10 @@
 
             var viewModel = this.diseasesService.GetByName<DiseaseViewModel>(changedName);
 
+            if (viewModel == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(viewModel);
         }

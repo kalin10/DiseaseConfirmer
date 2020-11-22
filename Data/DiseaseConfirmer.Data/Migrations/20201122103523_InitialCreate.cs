@@ -1,9 +1,8 @@
-﻿namespace DiseaseConfirmer.Data.Migrations
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
+
+namespace DiseaseConfirmer.Data.Migrations
 {
-    using System;
-
-    using Microsoft.EntityFrameworkCore.Migrations;
-
     public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -192,7 +191,7 @@
                     Heading = table.Column<string>(nullable: true),
                     Symptoms = table.Column<string>(nullable: true),
                     DetailedInformation = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -245,7 +244,7 @@
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Content = table.Column<string>(nullable: true),
                     InquiryId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: true)
+                    UserId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -1,5 +1,7 @@
 ﻿namespace DiseaseConfirmer.Data.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     using DiseaseConfirmer.Data.Common.Models;
 
     public class Disease : BaseDeletableModel<int>
@@ -14,6 +16,7 @@
 
         public string Cause { get; set; }
 
+        [Required]
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

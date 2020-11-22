@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiseaseConfirmer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201114134948_InitialCreate")]
+    [Migration("20201122103523_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -199,6 +199,7 @@ namespace DiseaseConfirmer.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -287,6 +288,7 @@ namespace DiseaseConfirmer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -412,7 +414,9 @@ namespace DiseaseConfirmer.Data.Migrations
 
                     b.HasOne("DiseaseConfirmer.Data.Models.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("DiseaseConfirmer.Data.Models.Disease", b =>
@@ -428,7 +432,9 @@ namespace DiseaseConfirmer.Data.Migrations
                 {
                     b.HasOne("DiseaseConfirmer.Data.Models.ApplicationUser", "User")
                         .WithMany("Inquiries")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
