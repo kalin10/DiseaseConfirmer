@@ -29,15 +29,19 @@
             </li>
         }
 
-        @for (int i = 1; i <= this.Model.PagesCount; i++)
+        @for (int i = this.Model.CurrentPage - 2; i <= this.Model.CurrentPage + 2; i++)
         {
-            var active = i == this.Model.CurrentPage ? "active" : string.Empty;
-            <li class="page-item @active">
-                <a class="page-link"
-                   asp-controller="Inquiries"
-                   asp-action="All"
-                   asp-route-page="@i">@i</a>
-            </li>
+            if (i > 0 && i <= this.Model.PagesCount)
+            {
+                var active = i == this.Model.CurrentPage ? "active" : string.Empty;
+                <li class="page-item @active">
+                    <a class="page-link"
+                       asp-controller="Inquiries"
+                       asp-action="All"
+                       asp-route-page="@i">@i</a>
+                </li>
+            }
+
         }
 
         @if (this.Model.CurrentPage == this.Model.PagesCount)
