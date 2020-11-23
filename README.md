@@ -1,2 +1,2 @@
 # DiseaseConfirmer
-Asp.Net Core 3.1 project
+.Net 5.0 project
