@@ -60,7 +60,9 @@
                             <a><i class="fas fa-user"></i> @Model.UserUserName</a>
                         </div>
                         <div class="text-muted small ml-3">
-                            <div><strong><i class="far fa-calendar-alt"></i> @Model.CreatedOn.ToString("O")</strong></div>
+                            <div><strong><i class="far fa-calendar-alt"></i> 
+                                         <time datetime="@Model.CreatedOn.ToString("O")"></time>
+                                </strong></div>
                         </div>
                     </div>
                 </div>

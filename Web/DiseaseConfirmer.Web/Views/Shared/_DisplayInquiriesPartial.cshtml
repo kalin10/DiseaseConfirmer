@@ -3,5 +3,5 @@
 @foreach (var inquiry in Model.Inqueries)
 {
 <h4 class="media-heading"><a asp-controller="Inquiries" asp-action="ById" asp-route-id="@inquiry.Id">@inquiry.Heading</a></h4>
-    <p><a style="float: left">Symptoms: @inquiry.ShortSymptoms</a><a style="float: right"><i class="far fa-calendar-alt"></i> @inquiry.CreatedOn.ToString("O")</a><br /></p>
+    <p><a style="float: left">Symptoms: @inquiry.ShortSymptoms</a><a style="float: right"><i class="far fa-calendar-alt"></i><time datetime="@inquiry.CreatedOn.ToString("O")"></time></a><br /></p>
 }
