@@ -13,7 +13,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class CategoriesController : Controller
+    public class CategoriesController : BaseController
     {
         private readonly ICategoriesService categoriesService;
         private readonly IDiseasesService diseasesService;

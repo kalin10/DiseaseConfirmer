@@ -3,6 +3,47 @@
 
 @{
     this.ViewData["Title"] = "Home Page";
+    void DisplayComments(int? parentId)
+    {
+        var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
+        if (!comments.Any())
+        {
+            return;
+        }
+        @foreach (var comment in comments)
+        {
+            <div  class="container-fluid mt-100" >
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <div class="media flex-wrap w-100 align-items-center">
+                                    <div class="media-body ml-3">
+                                        @comment.UserUserName
+                                        <div class="text-muted small">
+                                            <time datetime="@comment.CreatedOn.ToString("O")"></time>
+                                        </div>
+                                    </div>
+                                    <div class="text-muted small ml-3">
+                                        @if (this.User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>&nbsp; Replay</button> </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <article>
+                                    @comment.Content
+                                </article>
+                                @{ DisplayComments(comment.Id); }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
 }
 
 <div class="text-center">
@@ -19,7 +60,7 @@
                             <a><i class="fas fa-user"></i> @Model.UserUserName</a>
                         </div>
                         <div class="text-muted small ml-3">
-                            <div><strong><i class="far fa-calendar-alt"></i> @Model.CreatedOn</strong></div>
+                            <div><strong><i class="far fa-calendar-alt"></i> @Model.CreatedOn.ToString("O")</strong></div>
                         </div>
                     </div>
                 </div>
@@ -29,10 +70,51 @@
                     <p><strong>Things that can be ralated:</strong> @Model.DetailedInformation</p>
                 </div>
                 <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                    <i class="fas fa-chevron-up"> Upvotes</i> 
-                    <div class="px-4 pt-3"> <button type="button" class="btn btn-primary"><i class="ion ion-md-create"></i>&nbsp;Comment</button> </div>
+                    <i class="fas fa-chevron-up"> Upvotes</i>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <div class="px-4 pt-3">
+                            <button type="button" class="btn btn-primary" onclick="showAddCommentForm(0)">
+                                <i class="ion ion-md-create"></i>&nbsp;Comment
+                            </button>
+                        </div>
+                    }
+                </div>
+                <hr />
+                <div>
+                    @{ DisplayComments(null); }
                 </div>
             </div>
         </div>
     </div>
+
+
 </div>
+
+
+<div>
+    <form asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
+        <input type="hidden" name="InquiryId" value="@this.Model.Id" />
+        <input type="hidden" name="ParentId" value="0" />
+        <div>
+            <label for="Content"></label>
+            <textarea name="Content" id="Content" class="form-control"></textarea>
+        </div>
+        <hr />
+        <div>
+            <input type="submit" class="btn btn-primary" value="Add comment" />
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script>
+        function showAddCommentForm(parentId) {
+            $("#AddCommentForm input[name='ParentId']").val(parentId);
+            $("#AddCommentForm").show();
+            $([document.documentElement, document.body]).animate({
+                scrollTop: $("#AddCommentForm").offset().top
+            }, 1000);
+        }
+    </script>>
+}

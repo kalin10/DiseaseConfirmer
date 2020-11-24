@@ -1,6 +1,7 @@
 ﻿namespace DiseaseConfirmer.Web.ViewModels.Inquiries
 {
     using System;
+    using System.Collections.Generic;
 
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Mapping;
@@ -18,5 +19,7 @@
         public string UserUserName { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public IEnumerable<InquiryCommentViewModel> Comments { get; set; }
     }
 }

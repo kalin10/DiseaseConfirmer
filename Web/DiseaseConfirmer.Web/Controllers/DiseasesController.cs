@@ -10,7 +10,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class DiseasesController : Controller
+    public class DiseasesController : BaseController
     {
         private readonly IDiseasesService diseasesService;
         private readonly ICategoriesService categoriesService;

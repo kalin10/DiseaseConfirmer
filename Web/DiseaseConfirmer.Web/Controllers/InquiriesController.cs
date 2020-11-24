@@ -1,8 +1,5 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using DiseaseConfirmer.Data.Models;
@@ -13,7 +10,7 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
-    public class InquiriesController : Controller
+    public class InquiriesController : BaseController
     {
         private const int ItemsPerPage = 4;
 
