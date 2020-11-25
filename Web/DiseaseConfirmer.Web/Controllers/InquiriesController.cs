@@ -40,8 +40,6 @@
             return this.View(viewModel);
         }
 
-
-
         [Authorize]
         public async Task<IActionResult> AllById(int page = 1)
         {
