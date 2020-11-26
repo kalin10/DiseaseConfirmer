@@ -1,5 +1,6 @@
 ﻿namespace DiseaseConfirmer.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -17,6 +18,15 @@
             IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.usersRepository = usersRepository;
+        }
+
+        public async Task<IEnumerable<T>> GetAllUsersAsync<T>()
+        {
+            return await this.usersRepository
+                .All()
+                .OrderBy(x => x.UserName)
+                .To<T>()
+                .ToListAsync();
         }
 
         public async Task<ApplicationUser> GetUserByIdAsync(string userId)
