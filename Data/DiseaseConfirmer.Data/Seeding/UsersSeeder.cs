@@ -14,10 +14,10 @@
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
             var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-            await SeedUserAsync(userManager, "kalkata2002@abv.bg", "123456");
+            await SeedUserAsync(userManager, "kalkata2002@abv.bg", "kalin10", "123456");
         }
 
-        private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string userName, string password)
+        private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager,string email, string userName, string password)
         {
             var user = await userManager.FindByNameAsync(userName);
             if (user == null)
@@ -26,7 +26,7 @@
                 {
                     UserName = userName,
                     PhoneNumber = "+359000000000",
-                    Email = "kalkata2002@abv.bg",
+                    Email = email,
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
                 };
