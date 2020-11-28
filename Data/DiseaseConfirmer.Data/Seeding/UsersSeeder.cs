@@ -17,7 +17,7 @@
             await SeedUserAsync(userManager, "kalkata2002@abv.bg", "kalin10", "123456");
         }
 
-        private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager,string email, string userName, string password)
+        private static async Task SeedUserAsync(UserManager<ApplicationUser> userManager, string email, string userName, string password)
         {
             var user = await userManager.FindByNameAsync(userName);
             if (user == null)
@@ -29,6 +29,8 @@
                     Email = email,
                     EmailConfirmed = true,
                     PhoneNumberConfirmed = true,
+                    FirstName = "Kalin",
+                    LastName = "Kostadinov",
                 };
 
                 var result = await userManager.CreateAsync(user, password);

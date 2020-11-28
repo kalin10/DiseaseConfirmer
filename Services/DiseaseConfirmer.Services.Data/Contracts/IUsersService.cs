@@ -9,6 +9,10 @@
     {
         Task<ApplicationUser> GetUserByIdAsync(string userId);
 
+        Task<string> GetFirstNameByIdAsync(string userId);
+
+        Task<string> GetLastNameByIdAsync(string userId);
+
         Task<IEnumerable<T>> GetAllUsersAsync<T>();
     }
 }

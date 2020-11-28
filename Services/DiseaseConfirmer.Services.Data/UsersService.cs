@@ -29,6 +29,24 @@
                 .ToListAsync();
         }
 
+        public async Task<string> GetFirstNameByIdAsync(string userId)
+        {
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            return user.FirstName;
+        }
+
+        public async Task<string> GetLastNameByIdAsync(string userId)
+        {
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            return user.LastName;
+        }
+
         public async Task<ApplicationUser> GetUserByIdAsync(string userId)
         {
             var user = await this.usersRepository
