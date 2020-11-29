@@ -8,6 +8,7 @@
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class InquiriesService : IInquiriesService
     {
@@ -34,50 +35,49 @@
             return inquiry.Id;
         }
 
-        public IEnumerable<T> GetAll<T>(int page, int itemsPerPage = 4, string userId = null)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 4, string userId = null)
         {
-            IQueryable<Inquiry> query;
             if (!string.IsNullOrEmpty(userId))
             {
-                query = this.inquiriesRepository.All()
+                return await this.inquiriesRepository.All()
                     .Where(x => x.UserId == userId)
                     .OrderBy(x => x.CreatedOn)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage);
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync();
             }
             else
             {
-                query = this.inquiriesRepository.All()
+                return await this.inquiriesRepository.All()
                     .OrderBy(x => x.CreatedOn)
                     .Skip((page - 1) * itemsPerPage)
-                    .Take(itemsPerPage);
+                    .Take(itemsPerPage)
+                    .To<T>()
+                    .ToListAsync();
             }
-
-            return query.To<T>().ToList();
         }
 
-        public T GetById<T>(int id)
+        public async Task<T> GetByIdAsync<T>(int id)
         {
-            var inquiry = this.inquiriesRepository.All().Where(x => x.Id == id)
-                .To<T>().FirstOrDefault();
+            var inquiry = await this.inquiriesRepository.All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
             return inquiry;
         }
 
-        public int GetCount(string userId = null)
+        public async Task<int> GetCountAsync(string userId = null)
         {
-            IQueryable<Inquiry> query = this.inquiriesRepository.All();
-            int count;
             if (userId != null)
             {
-                count = query.Count(x => x.UserId == userId);
+                return await this.inquiriesRepository.All().CountAsync(x => x.UserId == userId);
             }
             else
             {
-                count = query.Count();
+                return await this.inquiriesRepository.All().CountAsync();
             }
-
-            return count;
         }
     }
 }

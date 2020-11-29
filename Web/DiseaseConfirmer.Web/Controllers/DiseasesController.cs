@@ -36,7 +36,7 @@
                 return this.View(input);
             }
 
-            var categoryId = this.categoriesService.GetIdByName(categoryName);
+            var categoryId = await this.categoriesService.GetIdByNameAsync(categoryName);
 
             var diseasecategoryId = await this.diseasesService
                 .CreateAsync(categoryId, input.Name, input.Symptoms, input.Cause, input.Тreatment, input.Description);
@@ -44,11 +44,11 @@
             return this.Redirect("/Categories/All");
         }
 
-        public IActionResult ByName(string name)
+        public async Task<IActionResult> ByName(string name)
         {
             string changedName = name.Replace('-', ' ');
 
-            var viewModel = this.diseasesService.GetByName<DiseaseViewModel>(changedName);
+            var viewModel = await this.diseasesService.GetByNameAsync<DiseaseViewModel>(changedName);
 
             if (viewModel == null)
             {

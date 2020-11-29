@@ -1,8 +1,9 @@
-﻿namespace DiseaseConfirmer.Services.Data.Contracts
+﻿namespace DiseaseConfirmer.Services.Data
 {
     using System.Threading.Tasks;
-    using DiseaseConfirmer.Data.Common.Repositories;
+
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using Microsoft.AspNetCore.Identity;
 
     public class RolesService : IRolesService

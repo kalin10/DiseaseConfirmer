@@ -6,6 +6,6 @@
     {
         Task Create(int inquiryId, string userId, string content, int? parentId = null);
 
-        bool IsInPostId(int commentId, int inquiryId);
+        Task<bool> IsInPostId(int commentId, int inquiryId);
     }
 }

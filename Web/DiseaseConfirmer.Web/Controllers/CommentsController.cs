@@ -32,7 +32,7 @@
 
             if (parentId.HasValue)
             {
-                if (!this.commentsService.IsInPostId(parentId.Value, input.InquiryId))
+                if (!await this.commentsService.IsInPostId(parentId.Value, input.InquiryId))
                 {
                     return this.BadRequest();
                 }

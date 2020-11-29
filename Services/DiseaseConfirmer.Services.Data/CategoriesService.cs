@@ -8,6 +8,7 @@
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class CategoriesService : ICategoriesService
     {
@@ -32,30 +33,44 @@
             return category.Id;
         }
 
-        public IEnumerable<T> GetAll<T>(int? count = null)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int? count = null)
         {
-            IQueryable<Category> query = this.categoriesRepository.All().OrderBy(x => x.Name);
             if (count.HasValue)
             {
-                query = query.Take(count.Value);
+                return await this.categoriesRepository
+                    .All()
+                    .OrderBy(x => x.Name)
+                    .Take(count.Value)
+                    .To<T>()
+                    .ToListAsync();
             }
-
-            return query.To<T>().ToList();
+            else
+            {
+                return await this.categoriesRepository
+                    .All()
+                    .OrderBy(x => x.Name)
+                    .To<T>()
+                    .ToListAsync();
+            }
         }
 
-        public T GetByName<T>(string name)
+        public async Task<T> GetByNameAsync<T>(string name)
         {
             string changedName = name.Replace('-', ' ');
 
-            var category = this.categoriesRepository.All().Where(x => x.Name == changedName)
-                .To<T>().FirstOrDefault();
+            var category = await this.categoriesRepository.All().Where(x => x.Name == changedName)
+                .To<T>().FirstOrDefaultAsync();
 
             return category;
         }
 
-        public int GetIdByName(string name)
+        public async Task<int> GetIdByNameAsync(string name)
         {
-            return this.categoriesRepository.All().FirstOrDefault(x => x.Name == name).Id;
+            var category = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Name == name);
+
+            return category.Id;
         }
     }
 }

@@ -6,11 +6,11 @@
 
     public interface ICategoriesService
     {
-        IEnumerable<T> GetAll<T>(int? count = null);
+        Task<IEnumerable<T>> GetAllAsync<T>(int? count = null);
 
-        T GetByName<T>(string name);
+        Task<T> GetByNameAsync<T>(string name);
 
-        int GetIdByName(string name);
+        Task<int> GetIdByNameAsync(string name);
 
         Task<int> CreateAsync(string name, string description);
     }

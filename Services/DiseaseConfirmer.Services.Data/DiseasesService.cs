@@ -8,6 +8,7 @@
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
+    using Microsoft.EntityFrameworkCore;
 
     public class DiseasesService : IDiseasesService
     {
@@ -36,27 +37,35 @@
             return disease.Id;
         }
 
-        public IEnumerable<T> GetAllByCategory<T>(string categoryName, int? count = null)
+        public async Task<IEnumerable<T>> GetAllByCategoryAsync<T>(string categoryName, int? count = null)
         {
             string changedName = categoryName.Replace('-', ' ');
 
-            IQueryable<Disease> query = this.diseasesRepository.All()
-                .Where(x => x.Category.Name == changedName)
-                .OrderBy(x => x.Name);
             if (count.HasValue)
             {
-                query = query.Take(count.Value);
+                return await this.diseasesRepository.All()
+                .Where(x => x.Category.Name == changedName)
+                .OrderBy(x => x.Name)
+                .Take(count.Value)
+                .To<T>()
+                .ToListAsync();
             }
 
-            return query.To<T>().ToList();
+            return await this.diseasesRepository.All()
+                .Where(x => x.Category.Name == changedName)
+                .OrderBy(x => x.Name)
+                .To<T>()
+                .ToListAsync();
         }
 
-        public T GetByName<T>(string name)
+        public async Task<T> GetByNameAsync<T>(string name)
         {
             string changedName = name.Replace('-', ' ');
 
-            var disease = this.diseasesRepository.All().Where(x => x.Name == changedName)
-                .To<T>().FirstOrDefault();
+            var disease =await this.diseasesRepository.All()
+                .Where(x => x.Name == changedName)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
             return disease;
         }

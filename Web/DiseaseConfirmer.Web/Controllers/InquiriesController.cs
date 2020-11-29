@@ -23,7 +23,7 @@
             this.userManager = userManager;
         }
 
-        public IActionResult All(int page = 1)
+        public async Task<IActionResult> All(int page = 1)
         {
             if (page <= 0)
             {
@@ -34,8 +34,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 CurrentPage = page,
-                InquiriesCount = this.inquiriesService.GetCount(),
-                Inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(page,ItemsPerPage),
+                InquiriesCount = await this.inquiriesService.GetCountAsync(),
+                Inqueries = await this.inquiriesService.GetAllAsync<IndexInquiryViewModel>(page, ItemsPerPage),
             };
             return this.View(viewModel);
         }
@@ -56,8 +56,8 @@
             {
                 ItemsPerPage = ItemsPerPage,
                 CurrentPage = page,
-                InquiriesCount = this.inquiriesService.GetCount(userId),
-                Inqueries = this.inquiriesService.GetAll<IndexInquiryViewModel>(page, ItemsPerPage, userId),
+                InquiriesCount = await this.inquiriesService.GetCountAsync(userId),
+                Inqueries = await this.inquiriesService.GetAllAsync<IndexInquiryViewModel>(page, ItemsPerPage, userId),
             };
 
             return this.View(viewModel);
@@ -88,9 +88,9 @@
             return this.Redirect("/Inquiries/AllById");
         }
 
-        public IActionResult ById(int id)
+        public async Task<IActionResult> ById(int id)
         {
-            var viewModel = this.inquiriesService.GetById<InquiryViewModel>(id);
+            var viewModel = await this.inquiriesService.GetByIdAsync<InquiryViewModel>(id);
 
             if (viewModel == null)
             {

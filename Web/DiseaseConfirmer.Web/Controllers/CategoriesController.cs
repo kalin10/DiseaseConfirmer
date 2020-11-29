@@ -44,28 +44,26 @@
             return this.Redirect("/Categories/All");
         }
 
-        public IActionResult All()
+        public async Task<IActionResult> All()
         {
             var viewModel = new CategoriesViewModel();
-            var categories = this.categoriesService.GetAll<IndexCategoryViewModel>()
-                .ToList();
+            var categories = await this.categoriesService.GetAllAsync<IndexCategoryViewModel>();
 
             viewModel.Categories = categories;
 
             return this.View(viewModel);
         }
 
-        public IActionResult ByName(string name)
+        public async Task<IActionResult> ByName(string name)
         {
-            var viewModel = this.categoriesService.GetByName<CategoryViewModel>(name);
+            var viewModel = await this.categoriesService.GetByNameAsync<CategoryViewModel>(name);
 
             if (viewModel == null)
             {
                 return this.NotFound();
             }
 
-            var diseases = this.diseasesService.GetAllByCategory<DiseaseInCategoryViewModel>(name)
-                .ToList();
+            var diseases = await this.diseasesService.GetAllByCategoryAsync<DiseaseInCategoryViewModel>(name);
 
             viewModel.Diseases = diseases;
 
