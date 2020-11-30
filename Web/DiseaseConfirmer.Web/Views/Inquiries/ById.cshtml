@@ -1,122 +1,139 @@
 ﻿@using DiseaseConfirmer.Common
 @model DiseaseConfirmer.Web.ViewModels.Inquiries.InquiryViewModel
 
-@{
-    this.ViewData["Title"] = "Home Page";
-    void DisplayComments(int? parentId)
-    {
-        var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
-        if (!comments.Any())
+    <link href="~/css/Inquiry.css" rel="stylesheet" id="bootstrap-css">
+
+    @{
+        this.ViewData["Title"] = "Home Page";
+        void DisplayComments(int? parentId)
         {
-            return;
-        }
-        @foreach (var comment in comments)
-        {
-            <div  class="container-fluid mt-100" >
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <div class="media flex-wrap w-100 align-items-center">
-                                    <div class="media-body ml-3">
-                                        @comment.UserUserName
-                                        <div class="text-muted small">
-                                            <time datetime="@comment.CreatedOn.ToString("O")"></time>
+            var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
+            if (!comments.Any())
+            {
+                return;
+            }
+            @foreach (var comment in comments)
+            {
+                <div class="container-fluid mt-100">
+                    <div class="row">
+                        <div class="col-md-12" style="border-width: 5px">
+                            <div class="card mb-4">
+                                <div class="card-header" id="commentNav">
+                                    <div class="media flex-wrap w-100 align-items-center" style="color: white">
+                                        <div class="media-body ml-3">
+                                            <span id="userName"> @comment.UserUserName </span>
+                                            <div class="text-muted small">
+                                                <strong>
+                                                    <time datetime="@comment.CreatedOn.ToString("O")"></time>
+                                                </strong>
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="text-muted small ml-3">
+                                            @if (this.User.Identity.IsAuthenticated)
+                                            {
+                                                <div class="px-4 pt-3">
+                                                    <button id="Replay" type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)">
+                                                        <i class="fa fa-plus"></i>&nbsp; Replay
+                                                    </button>
+                                                </div>
+                                            }
                                         </div>
                                     </div>
-                                    <div class="text-muted small ml-3">
-                                        @if (this.User.Identity.IsAuthenticated)
-                                        {
-                                            <div class="px-4 pt-3"> <button type="button" class="btn btn-secondary" onclick="showAddCommentForm(@comment.Id)"><i class="fa fa-plus"></i>&nbsp; Replay</button> </div>
-                                        }
-                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <article>
+                                        @comment.Content
+                                    </article>
+
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <article>
-                                    @comment.Content
-                                </article>
-                                @{ DisplayComments(comment.Id); }
+                        </div>
+                    </div>
+
+                </div>
+                <div id="subComment">
+                    @{ DisplayComments(comment.Id); }
+                </div>
+            }
+        }
+    }
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+    </div>
+
+    <div class="container-fluid mt-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="media flex-wrap w-100 align-items-center">
+                            <div class="media-body ml-3">
+                                <a id="userName"><i class="fas fa-user"></i> @Model.UserUserName</a>
+                            </div>
+                            <div class="media-body ml-3">
+                                <h3 id="heading">@Model.Heading</h3>
+                            </div>
+                            <div id="date" class="media-body ml-3 text-muted small ml-3">
+                                    <strong>
+                                        <i class="far fa-calendar-alt"></i>
+                                        <time datetime="@Model.CreatedOn.ToString("O")"></time>
+                                    </strong>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        }
-    }
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-</div>
-
-<div class="container-fluid mt-100">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card mb-4">
-                <div class="card-header">
-                    <div class="media flex-wrap w-100 align-items-center">
-                        <div class="media-body ml-3">
-                            <a><i class="fas fa-user"></i> @Model.UserUserName</a>
-                        </div>
-                        <div class="text-muted small ml-3">
-                            <div><strong><i class="far fa-calendar-alt"></i> 
-                                         <time datetime="@Model.CreatedOn.ToString("O")"></time>
-                                </strong></div>
-                        </div>
+                    <div class="card-body">
+                        
+                        <p><strong>Symptoms:</strong> @Model.Symptoms</p>
+                        <p><strong>Things that can be ralated:</strong> @Model.DetailedInformation</p>
                     </div>
-                </div>
-                <div class="card-body">
-                    <h3>@Model.Heading</h3>
-                    <p><strong>Symptoms:</strong> @Model.Symptoms</p>
-                    <p><strong>Things that can be ralated:</strong> @Model.DetailedInformation</p>
-                </div>
-                <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
-                    <i class="fas fa-chevron-up"> Upvotes</i>
-                    @if (this.User.Identity.IsAuthenticated)
-                    {
-                        <div class="px-4 pt-3">
-                            <button type="button" class="btn btn-primary" onclick="showAddCommentForm(0)">
-                                <i class="ion ion-md-create"></i>&nbsp;Comment
-                            </button>
-                        </div>
-                    }
-                </div>
-                <hr />
-                <div>
-                    @{ DisplayComments(null); }
+                    <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                        <i class="fas fa-chevron-up"> Upvotes</i>
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <div class="px-4 pt-3">
+                                <button type="button" class="btn btn-primary" onclick="showAddCommentForm(0)">
+                                    <i class="ion ion-md-create"></i>&nbsp;Comment
+                                </button>
+                            </div>
+                        }
+                    </div>
+                    <hr />
+                    <div>
+                        @{ DisplayComments(null); }
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 
 
-</div>
+    <div>
+        <form asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
+            <input type="hidden" name="InquiryId" value="@this.Model.Id" />
+            <input type="hidden" name="ParentId" value="0" />
+            <div>
+                <label for="Content"></label>
+                <textarea name="Content" id="Content" class="form-control"></textarea>
+            </div>
+            <hr />
+            <div>
+                <input type="submit" class="btn btn-primary" value="Add comment" />
+            </div>
+        </form>
+    </div>
 
-
-<div>
-    <form asp-controller="Comments" asp-action="Create" method="post" id="AddCommentForm" style="display: none">
-        <input type="hidden" name="InquiryId" value="@this.Model.Id" />
-        <input type="hidden" name="ParentId" value="0" />
-        <div>
-            <label for="Content"></label>
-            <textarea name="Content" id="Content" class="form-control"></textarea>
-        </div>
-        <hr />
-        <div>
-            <input type="submit" class="btn btn-primary" value="Add comment" />
-        </div>
-    </form>
-</div>
-
-@section Scripts{
-    <script>
-        function showAddCommentForm(parentId) {
-            $("#AddCommentForm input[name='ParentId']").val(parentId);
-            $("#AddCommentForm").show();
-            $([document.documentElement, document.body]).animate({
-                scrollTop: $("#AddCommentForm").offset().top
-            }, 1000);
-        }
-    </script>>
-}
+    @section Scripts{
+        <script>
+            function showAddCommentForm(parentId) {
+                $("#AddCommentForm input[name='ParentId']").val(parentId);
+                $("#AddCommentForm").show();
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $("#AddCommentForm").offset().top
+                }, 1000);
+            }
+        </script>>
+    }
