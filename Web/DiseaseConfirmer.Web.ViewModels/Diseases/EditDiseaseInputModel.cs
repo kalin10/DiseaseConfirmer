@@ -3,7 +3,7 @@
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Mapping;
 
-    public class DiseaseViewModel : IMapFrom<Disease>
+    public class EditDiseaseInputModel : IMapFrom<Disease>, IMapTo<Disease>
     {
         public int Id { get; set; }
 

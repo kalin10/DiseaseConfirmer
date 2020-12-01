@@ -1,18 +1,11 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Data;
-    using DiseaseConfirmer.Data.Common.Repositories;
-    using DiseaseConfirmer.Data.Models;
-    using DiseaseConfirmer.Services.Data;
     using DiseaseConfirmer.Services.Data.Contracts;
-    using DiseaseConfirmer.Services.Mapping;
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class CategoriesController : BaseController
     {
@@ -25,14 +18,14 @@
             this.diseasesService = diseasesService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Doctor")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> Add(CategoryCreateInputModel input)
         {
             if (!this.ModelState.IsValid)

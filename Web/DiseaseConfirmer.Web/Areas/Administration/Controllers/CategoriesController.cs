@@ -13,12 +13,10 @@
     public class CategoriesController : AdministrationController
     {
         private readonly ICategoriesService categoriesService;
-        private readonly IDiseasesService diseasesService;
 
-        public CategoriesController(ICategoriesService categoriesService, IDiseasesService diseasesService)
+        public CategoriesController(ICategoriesService categoriesService)
         {
             this.categoriesService = categoriesService;
-            this.diseasesService = diseasesService;
         }
 
         public async Task<IActionResult> All()

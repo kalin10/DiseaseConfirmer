@@ -1,9 +1,16 @@
 ﻿@using DiseaseConfirmer.Common
+@using Microsoft.AspNetCore.Identity
+@using DiseaseConfirmer.Data.Models
+@inject UserManager<ApplicationUser> UserManager
+
 @model DiseaseConfirmer.Web.ViewModels.Diseases.DiseaseViewModel
 
 @{
     this.ViewData["Title"] = "Home Page";
 }
+
+@{ApplicationUser user = await this.UserManager.GetUserAsync(this.User);}
+@{IList<string> userRoles = await this.UserManager.GetRolesAsync(user); }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
@@ -26,4 +33,10 @@
             <p>@Model.Тreatment</p>
         </li>
     </ul>
+    <hr />
+    @if (userRoles.Contains(GlobalConstants.DoctorRoleName))
+    {
+        <a asp-area="Doctors" asp-controller="Diseases" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-block btn-secondary">Edit</a>
+    }
+
 </div>

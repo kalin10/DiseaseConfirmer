@@ -1,15 +1,34 @@
 ﻿@using DiseaseConfirmer.Common
+@using Microsoft.AspNetCore.Identity
+@using DiseaseConfirmer.Data.Models
+@inject UserManager<ApplicationUser> UserManager
+
 @model DiseaseConfirmer.Web.ViewModels.Categories.CategoryViewModel
+
+@{ApplicationUser user = await this.UserManager.GetUserAsync(this.User);}
+@{IList<string> userRoles = await this.UserManager.GetRolesAsync(user); }
 
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName! <a href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a></h1>
+    <h1 class="display-4">
+        Welcome to @GlobalConstants.SystemName!
+        @if (userRoles.Contains(GlobalConstants.DoctorRoleName))
+        {
+        <a href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a>
+        }
+        
+    </h1>
     @foreach (var disease in Model.Diseases)
     {
         <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>
+        @if (userRoles.Contains(GlobalConstants.AdministratorRoleName))
+        {
+            <a asp-controller="Diseases" asp-action="Delete" asp-route-id="@disease.Id" class="btn btn-secondary btn-sm">Delete Disease</a>
+        }
+
         <p style="text-align:left">@disease.ShortDescription</p>
     }
 

@@ -1,0 +1,44 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Diseases.EditDiseaseInputModel
+@using DiseaseConfirmer.Common
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+<form method="post" asp-action="Edit">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+
+    <div>
+        <label asp-for="Name">Name:</label>
+        <textarea asp-for="Name" class="form-control"></textarea>
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description">Description:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Symptoms">Symptoms:</label>
+        <textarea asp-for="Symptoms" class="form-control"></textarea>
+        <span asp-validation-for="Symptoms" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Тreatment">Тreatment:</label>
+        <textarea asp-for="Тreatment" class="form-control"></textarea>
+        <span asp-validation-for="Тreatment" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Cause">Cause:</label>
+        <textarea asp-for="Cause" class="form-control"></textarea>
+        <span asp-validation-for="Cause" class="text-danger"></span>
+    </div>
+
+    <div>
+        <p></p>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </div>
+
+</form>

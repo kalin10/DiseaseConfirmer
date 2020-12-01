@@ -1,11 +1,8 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
-    using System.Linq;
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Services.Data;
     using DiseaseConfirmer.Services.Data.Contracts;
-    using DiseaseConfirmer.Web.ViewModels.Categories;
     using DiseaseConfirmer.Web.ViewModels.Diseases;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -21,14 +18,14 @@
             this.categoriesService = categoriesService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Doctor")]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> Add(DiseaseCreateInputModel input, string categoryName)
         {
             if (!this.ModelState.IsValid)
@@ -62,6 +59,13 @@
             }
 
             return this.View(viewModel);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await this.diseasesService.DeleteAsync(id);
+            return this.Redirect("/Categories/All");
         }
     }
 }

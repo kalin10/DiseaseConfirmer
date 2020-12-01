@@ -1,12 +1,13 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
+    using System.Threading.Tasks;
+
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Comments;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class CommentsController : BaseController
     {

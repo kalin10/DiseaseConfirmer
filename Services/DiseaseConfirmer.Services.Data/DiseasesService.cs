@@ -42,6 +42,31 @@
             return -1;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            Disease disease = await this.diseasesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            this.diseasesRepository.Delete(disease);
+            await this.diseasesRepository.SaveChangesAsync();
+        }
+
+        public async Task EditAsync(int id, string name, string symptoms, string cause, string treatment, string description)
+        {
+            Disease disease = await this.diseasesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (disease != null)
+            {
+                disease.Name = name;
+                disease.Symptoms = symptoms;
+                disease.Cause = cause;
+                disease.Тreatment = treatment;
+                disease.Description = description;
+
+                await this.diseasesRepository.SaveChangesAsync();
+            }
+        }
+
         public async Task<IEnumerable<T>> GetAllByCategoryAsync<T>(string categoryName, int? count = null)
         {
             string changedName = categoryName.Replace('-', ' ');
@@ -61,6 +86,14 @@
                 .OrderBy(x => x.Name)
                 .To<T>()
                 .ToListAsync();
+        }
+
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            var disease = await this.diseasesRepository.All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefaultAsync();
+
+            return disease;
         }
 
         public async Task<T> GetByNameAsync<T>(string name)
