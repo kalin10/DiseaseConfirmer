@@ -1,0 +1,30 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Categories.CategoriesViewModel
+
+@using DiseaseConfirmer.Common
+
+@{
+    this.ViewData["Title"] = "Admin dashboard";
+}
+
+<div class="row">
+    <div class="col-sm">
+        <h3 class="text-center">Categories</h3>
+        <h4 class="text-center">Number of Categories: @Model.Categories.Count()</h4>
+        <ul class="list-group">
+            @foreach (var category in Model.Categories)
+            {
+            <li class="list-group-item d-flex align-items-center">
+                @category.Name
+                <a class="text-white btn btn-secondary m-2" href="/Administration/Categories/Edit/@category.Id">
+                    Edit
+                </a>
+                <a class="text-white btn btn-danger m-2" href="/Administration/Categories/Delete?id=@category.Id">
+                    Delete
+                </a>
+            </li>
+            }
+        </ul>
+    </div>
+</div>
+
+

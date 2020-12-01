@@ -38,8 +38,14 @@
 
             var categoryId = await this.categoriesService.GetIdByNameAsync(categoryName);
 
-            var diseasecategoryId = await this.diseasesService
+            var diseaseId = await this.diseasesService
                 .CreateAsync(categoryId, input.Name, input.Symptoms, input.Cause, input.Тreatment, input.Description);
+
+            if (diseaseId == -1)
+            {
+                this.ModelState.AddModelError("Name", "Disease already exists");
+                return this.View(input);
+            }
 
             return this.Redirect("/Categories/All");
         }

@@ -21,16 +21,43 @@
 
         public async Task<int> CreateAsync(string name, string description)
         {
-            var category = new Category
+            if (await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Name == name) == null)
             {
-                Name = name,
-                Description = description,
-            };
+                var category = new Category
+                {
+                    Name = name,
+                    Description = description,
+                };
 
-            await this.categoriesRepository.AddAsync(category);
+                await this.categoriesRepository.AddAsync(category);
+                await this.categoriesRepository.SaveChangesAsync();
+
+                return category.Id;
+            }
+
+            return -1;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            Category category = await this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            this.categoriesRepository.Delete(category);
             await this.categoriesRepository.SaveChangesAsync();
+        }
 
-            return category.Id;
+        public async Task EditAsync(int id, string name, string description)
+        {
+            Category category = await this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (category != null)
+            {
+                category.Name = name;
+                category.Description = description;
+
+                await this.categoriesRepository.SaveChangesAsync();
+            }
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>(int? count = null)
@@ -52,6 +79,14 @@
                     .To<T>()
                     .ToListAsync();
             }
+        }
+
+        public async Task<T> GetByIdAsync<T>(int id)
+        {
+            var category = await this.categoriesRepository.All().Where(x => x.Id == id)
+                .To<T>().FirstOrDefaultAsync();
+
+            return category;
         }
 
         public async Task<T> GetByNameAsync<T>(string name)

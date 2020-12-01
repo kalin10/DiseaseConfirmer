@@ -1,0 +1,26 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Categories.EditCategoryInputModel
+@using DiseaseConfirmer.Common
+@{
+    this.ViewData["Title"] = "Admin dashboard";
+}
+<form method="post" asp-action="Edit">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
+
+    <div>
+        <label asp-for="Name">Name:</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div>
+        <label asp-for="Description">Description:</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div>
+        <hr />
+        <button type="submit" class="btn btn-success">Edit</button>
+    </div>
+
+</form>

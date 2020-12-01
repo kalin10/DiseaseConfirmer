@@ -12,6 +12,7 @@
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
 
     public class CategoriesController : BaseController
     {
@@ -40,6 +41,12 @@
             }
 
             var categoryId = await this.categoriesService.CreateAsync(input.Name, input.Description);
+
+            if (categoryId == -1)
+            {
+                this.ModelState.AddModelError("Name", "Category already exists");
+                return this.View(input);
+            }
 
             return this.Redirect("/Categories/All");
         }

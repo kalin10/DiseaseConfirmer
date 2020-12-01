@@ -21,20 +21,25 @@
 
         public async Task<int> CreateAsync(int categoryId, string name, string symptoms, string cause, string treatment, string description)
         {
-            var disease = new Disease
+            if (await this.diseasesRepository.All().FirstOrDefaultAsync(x => x.Name == name) == null)
             {
-                Name = name,
-                Symptoms = symptoms,
-                Description = description,
-                Cause = cause,
-                CategoryId = categoryId,
-                Тreatment = treatment,
-            };
+                var disease = new Disease
+                {
+                    Name = name,
+                    Symptoms = symptoms,
+                    Description = description,
+                    Cause = cause,
+                    CategoryId = categoryId,
+                    Тreatment = treatment,
+                };
 
-            await this.diseasesRepository.AddAsync(disease);
-            await this.diseasesRepository.SaveChangesAsync();
+                await this.diseasesRepository.AddAsync(disease);
+                await this.diseasesRepository.SaveChangesAsync();
 
-            return disease.Id;
+                return disease.Id;
+            }
+
+            return -1;
         }
 
         public async Task<IEnumerable<T>> GetAllByCategoryAsync<T>(string categoryName, int? count = null)
@@ -62,7 +67,7 @@
         {
             string changedName = name.Replace('-', ' ');
 
-            var disease =await this.diseasesRepository.All()
+            var disease = await this.diseasesRepository.All()
                 .Where(x => x.Name == changedName)
                 .To<T>()
                 .FirstOrDefaultAsync();

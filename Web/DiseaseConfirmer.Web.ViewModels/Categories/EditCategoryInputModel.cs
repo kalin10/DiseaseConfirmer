@@ -1,9 +1,9 @@
-﻿using DiseaseConfirmer.Data.Models;
-using DiseaseConfirmer.Services.Mapping;
-
-namespace DiseaseConfirmer.Web.ViewModels.Categories
+﻿namespace DiseaseConfirmer.Web.ViewModels.Categories
 {
-    public class EditCategoryInputModel : IMapFrom<Category>
+    using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Mapping;
+
+    public class EditCategoryInputModel : IMapFrom<Category>, IMapTo<Category>
     {
         public int Id { get; set; }
 
