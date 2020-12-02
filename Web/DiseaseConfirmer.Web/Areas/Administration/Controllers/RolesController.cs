@@ -12,10 +12,12 @@
     public class RolesController : AdministrationController
     {
         private readonly IRolesService rolesService;
+        private readonly IUsersService usersService;
 
-        public RolesController(IRolesService rolesService)
+        public RolesController(IRolesService rolesService, IUsersService usersService)
         {
             this.rolesService = rolesService;
+            this.usersService = usersService;
         }
 
         public async Task<IActionResult> AddUserToRole(string userId, string roleName)

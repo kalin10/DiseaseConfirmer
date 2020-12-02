@@ -1,20 +1,16 @@
 ﻿@using DiseaseConfirmer.Common
-@using Microsoft.AspNetCore.Identity
-@using DiseaseConfirmer.Data.Models
-@inject UserManager<ApplicationUser> UserManager
 
 @model DiseaseConfirmer.Web.ViewModels.Categories.CategoriesViewModel
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
-@{ApplicationUser user = await this.UserManager.GetUserAsync(this.User);}
-@{IList<string> userRoles = await this.UserManager.GetRolesAsync(user); }
+@{ var name = this.User.Identity.Name;}
 
 <div class="text-center">
     <h1 class="display-4">
         Welcome to @GlobalConstants.SystemName!
-        @if (userRoles.Contains(GlobalConstants.DoctorRoleName))
+        @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
         {
             <a asp-controller="Categories" asp-action="Add" class="btn btn-secondary btn-sm">Create Category</a>
         }

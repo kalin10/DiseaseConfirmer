@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
@@ -26,6 +27,15 @@
                 UserId = userId,
             };
             await this.commentsRepository.AddAsync(comment);
+            await this.commentsRepository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            Comment comment = await this.commentsRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            this.commentsRepository.Delete(comment);
             await this.commentsRepository.SaveChangesAsync();
         }
 

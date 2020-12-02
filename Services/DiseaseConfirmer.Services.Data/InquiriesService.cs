@@ -35,6 +35,14 @@
             return inquiry.Id;
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            Inquiry inquiry = await this.inquiriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+            this.inquiriesRepository.Delete(inquiry);
+            await this.inquiriesRepository.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 4, string userId = null)
         {
             if (!string.IsNullOrEmpty(userId))

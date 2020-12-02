@@ -7,5 +7,7 @@
         Task Create(int inquiryId, string userId, string content, int? parentId = null);
 
         Task<bool> IsInPostId(int commentId, int inquiryId);
+
+        Task DeleteAsync(int id);
     }
 }

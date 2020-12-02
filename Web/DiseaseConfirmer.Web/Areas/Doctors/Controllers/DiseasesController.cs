@@ -14,12 +14,10 @@
     public class DiseasesController : BaseController
     {
         private readonly IDiseasesService diseasesService;
-        private readonly ICategoriesService categoriesService;
 
-        public DiseasesController(IDiseasesService diseasesService, ICategoriesService categoriesService)
+        public DiseasesController(IDiseasesService diseasesService)
         {
             this.diseasesService = diseasesService;
-            this.categoriesService = categoriesService;
         }
 
         public async Task<IActionResult> Edit(int id)

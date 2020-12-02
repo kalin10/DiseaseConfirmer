@@ -13,5 +13,7 @@
         Task<int> CreateAsync(string heading, string symptoms, string detailedInformation, string userId);
 
         Task<int> GetCountAsync(string userId = null);
+
+        Task DeleteAsync(int id);
     }
 }

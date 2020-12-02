@@ -1,13 +1,12 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Data.Models;
-    using DiseaseConfirmer.Services.Data;
+    using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Inquiries;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class InquiriesController : BaseController
@@ -15,12 +14,10 @@
         private const int ItemsPerPage = 4;
 
         private readonly IInquiriesService inquiriesService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public InquiriesController(IInquiriesService inquiriesService, UserManager<ApplicationUser> userManager)
+        public InquiriesController(IInquiriesService inquiriesService)
         {
             this.inquiriesService = inquiriesService;
-            this.userManager = userManager;
         }
 
         public async Task<IActionResult> All(int page = 1)
@@ -48,9 +45,9 @@
                 return this.NotFound();
             }
 
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            var userId = user.Id;
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
 
             var viewModel = new InquiriesViewModel
             {
@@ -73,14 +70,14 @@
         [Authorize]
         public async Task<IActionResult> Add(InquiriesCreateInputModel input)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            var userId = user.Id;
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
 
             var inquiryId =
                 await this.inquiriesService.CreateAsync(input.Heading, input.Symptoms, input.DetailedInformation, userId);
@@ -98,6 +95,32 @@
             }
 
             return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var user = this.User;
+            var userName = user.Identity.Name;
+
+            var inquiry = await this.inquiriesService.GetByIdAsync<InquiryViewModel>(id);
+
+            if (userName == inquiry.UserUserName || user.IsInRole(GlobalConstants.DoctorRoleName))
+            {
+                await this.inquiriesService.DeleteAsync(id);
+            }
+            else
+            {
+                return this.Unauthorized();
+            }
+
+            if (user.IsInRole(GlobalConstants.DoctorRoleName))
+            {
+                return this.Redirect("/Inquiries/All");
+            }
+            else
+            {
+                return this.Redirect("/Inquiries/AllById");
+            }
         }
     }
 }

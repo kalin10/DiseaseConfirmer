@@ -1,25 +1,20 @@
 ﻿namespace DiseaseConfirmer.Web.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Comments;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     public class CommentsController : BaseController
     {
         private readonly ICommentsService commentsService;
-        private readonly UserManager<ApplicationUser> userManager;
 
-        public CommentsController(
-            ICommentsService commentsService,
-            UserManager<ApplicationUser> userManager)
+        public CommentsController(ICommentsService commentsService)
         {
             this.commentsService = commentsService;
-            this.userManager = userManager;
         }
 
         [HttpPost]
@@ -39,7 +34,10 @@
                 }
             }
 
-            var userId = this.userManager.GetUserId(this.User);
+            var claimsIdentity = (ClaimsIdentity)this.User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+            var userId = claim.Value;
+
             await this.commentsService.Create(input.InquiryId, userId, input.Content, parentId);
             return this.RedirectToAction("ById", "Inquiries", new { id = input.InquiryId });
         }

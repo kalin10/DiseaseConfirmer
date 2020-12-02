@@ -40,7 +40,7 @@
                 {
                     ApplicationUser currentUser = await this.UserManager.FindByIdAsync(user.Id);
                     IList<string> currentUserRoles = await this.UserManager.GetRolesAsync(currentUser);
-                    @if (this.User.Identity.Name != currentUser.UserName)
+                    @if (this.User.Identity.Name != user.UserName)
                     {
                         <tr>
                             <td>@user.UserName</td>
