@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using DiseaseConfirmer.Data.Models;
-using DiseaseConfirmer.Services.Data.Contracts;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-
-namespace DiseaseConfirmer.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace DiseaseConfirmer.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.Threading.Tasks;
+
+    using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Data.Contracts;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

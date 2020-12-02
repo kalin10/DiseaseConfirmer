@@ -36,9 +36,18 @@ namespace DiseaseConfirmer.Data.Models
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
 
+        // Custom
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public int? CategoryId { get; set; }
+
+        public virtual Category Category { get; set; }
+
+        public int? CareerInfoId { get; set; }
+
+        public virtual CareerInfo CareerInfo { get; set; }
 
         public virtual ICollection<Inquiry> Inquiries { get; set; }
 

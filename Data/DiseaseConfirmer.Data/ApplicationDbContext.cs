@@ -32,6 +32,8 @@
 
         public DbSet<Disease> Diseases { get; set; }
 
+        public DbSet<CareerInfo> CareersInfo { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -59,6 +61,12 @@
             this.ConfigureUserIdentityRelations(builder);
 
             EntityIndexesConfiguration.Configure(builder);
+
+            builder
+                .Entity<CareerInfo>()
+                .HasOne(c => c.Doctor)
+                .WithOne(u => u.CareerInfo)
+                .HasForeignKey<ApplicationUser>(u => u.CareerInfoId);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

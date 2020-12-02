@@ -21,9 +21,11 @@
 
         public async Task<IActionResult> Delete(int id)
         {
+            var inquiryId = await this.commentsService.GetInquiryIdByCommentId(id);
+
             await this.commentsService.DeleteAsync(id);
 
-            return this.Redirect("/Inquiries/All");
+            return this.Redirect($"/Inquiries/ById/{inquiryId}");
         }
     }
 }

@@ -9,5 +9,7 @@
         Task<bool> IsInPostId(int commentId, int inquiryId);
 
         Task DeleteAsync(int id);
+
+        Task<int> GetInquiryIdByCommentId(int commentId);
     }
 }

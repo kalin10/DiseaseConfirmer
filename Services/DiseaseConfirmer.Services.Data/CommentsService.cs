@@ -39,6 +39,13 @@
             await this.commentsRepository.SaveChangesAsync();
         }
 
+        public async Task<int> GetInquiryIdByCommentId(int commentId)
+        {
+            var comment = await this.commentsRepository.All().FirstOrDefaultAsync(x => x.Id == commentId);
+
+            return comment.InquiryId;
+        }
+
         public async Task<bool> IsInPostId(int commentId, int inquiryId)
         {
             var commentInquiryId = await this.commentsRepository.All().Where(x => x.Id == commentId)
