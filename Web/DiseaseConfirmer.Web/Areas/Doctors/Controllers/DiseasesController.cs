@@ -9,9 +9,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = GlobalConstants.DoctorRoleName)]
-    [Area("Doctors")]
-    public class DiseasesController : BaseController
+    public class DiseasesController : DoctorsController
     {
         private readonly IDiseasesService diseasesService;
 

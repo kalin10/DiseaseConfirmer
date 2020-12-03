@@ -9,22 +9,20 @@
 
 <div class="text-center">
     <h1 class="display-4">
-        Welcome to @GlobalConstants.SystemName!
+        @Model.Name
         @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
         {
             <a href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a>
         }
-
     </h1>
+    <p>@Model.Description</p>
     @foreach (var disease in Model.Diseases)
     {
         <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>
         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
-            <a asp-controller="Diseases" asp-action="Delete" asp-route-id="@disease.Id" class="btn btn-secondary btn-sm">Delete Disease</a>
+            <a asp-controller="Diseases" asp-action="Delete" asp-route-id="@disease.Id" class="btn btn-danger btn-sm">Delete Disease</a>
         }
-
         <p style="text-align:left">@disease.ShortDescription</p>
     }
-
 </div>

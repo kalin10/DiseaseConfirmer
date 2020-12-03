@@ -8,8 +8,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Area("Administration")]
     public class CategoriesController : AdministrationController
     {
         private readonly ICategoriesService categoriesService;

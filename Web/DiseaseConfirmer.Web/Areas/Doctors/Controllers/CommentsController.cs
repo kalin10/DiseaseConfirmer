@@ -8,9 +8,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = GlobalConstants.DoctorRoleName)]
-    [Area("Doctors")]
-    public class CommentsController : BaseController
+    public class CommentsController : DoctorsController
     {
         private readonly ICommentsService commentsService;
 

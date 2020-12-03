@@ -16,5 +16,7 @@
         public string Тreatment { get; set; }
 
         public string Cause { get; set; }
+
+        public string CategoryName { get; set; }
     }
 }

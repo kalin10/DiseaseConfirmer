@@ -7,8 +7,6 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Area("Administration")]
     public class RolesController : AdministrationController
     {
         private readonly IRolesService rolesService;
