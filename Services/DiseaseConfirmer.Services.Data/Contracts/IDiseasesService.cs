@@ -9,7 +9,7 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        Task<T> GetByNameAsync<T>(string name);
+        //Task<T> GetByNameAsync<T>(string name);
 
         Task<int> CreateAsync(int categoryId, string name, string symptoms, string cause, string treatment, string description);
 

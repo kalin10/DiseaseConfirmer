@@ -47,20 +47,6 @@
             return this.Redirect("/Categories/All");
         }
 
-        public async Task<IActionResult> ByName(string name)
-        {
-            string changedName = name.Replace('-', ' ');
-
-            var viewModel = await this.diseasesService.GetByNameAsync<DiseaseViewModel>(changedName);
-
-            if (viewModel == null)
-            {
-                return this.NotFound();
-            }
-
-            return this.View(viewModel);
-        }
-
         [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Delete(int id)
         {

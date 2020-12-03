@@ -6,23 +6,58 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
-
 <div class="text-center">
     <h1 class="display-4">
         @Model.Name
         @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
         {
-            <a href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a>
+            <a id="floatRight" href="@Model.AddDiseaseButtonUrl" class="btn btn-secondary btn-sm">Add Disease</a>
         }
     </h1>
-    <p>@Model.Description</p>
-    @foreach (var disease in Model.Diseases)
-    {
-        <a href="@disease.Url" class="btn btn-block btn-primary">@disease.Name</a>
-        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-        {
-            <a asp-controller="Diseases" asp-action="Delete" asp-route-id="@disease.Id" class="btn btn-danger btn-sm">Delete Disease</a>
-        }
-        <p style="text-align:left">@disease.ShortDescription</p>
-    }
+    <p><i class="fas fa-info"></i> @Model.Description</p>
 </div>
+
+<div >
+    
+    
+    <div class="keys">
+        @foreach (var disease in Model.Diseases)
+        {
+            <button id="accordion" class="accordion">@disease.Name</button>
+            <div class="panel" style="display:none">
+                <p><i class="fas fa-info"></i> @disease.Description</p>
+                <h5><strong>Symptoms:</strong></h5>
+                <p>@disease.Symptoms</p>
+                <h5><strong>Cause:</strong></h5>
+                <p>@disease.Cause</p>
+                <h5><strong>Тreatment:</strong></h5>
+                <p>@disease.Тreatment</p>
+                @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                {
+                    <a id="floatRight" asp-controller="Diseases" asp-action="Delete" asp-route-id="@disease.Id" class="btn btn-danger btn-sm">Delete Disease</a>
+                }
+                @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
+                {
+                    <a id="floatRight" asp-area="Doctors" asp-controller="Diseases" asp-action="Edit" asp-route-id="@disease.Id" class="btn btn-secondary">Edit</a>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>

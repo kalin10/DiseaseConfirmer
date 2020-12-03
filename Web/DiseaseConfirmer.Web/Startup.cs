@@ -114,7 +114,7 @@
                     {
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("categories", "f/{name:minlength(4)}", new { controller = "Categories", action = "ByName" });
-                        endpoints.MapControllerRoute("diseaseCategory", "d/{name:minlength(3)}", new { controller = "Diseases", action = "ByName" });
+                        //endpoints.MapControllerRoute("diseaseCategory", "d/{name:minlength(3)}", new { controller = "Diseases", action = "ByName" });
                         endpoints.MapControllerRoute("addDisease", "d/{categoryName:minlength(3)}/Add", new { controller = "Diseases", action = "Add" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();

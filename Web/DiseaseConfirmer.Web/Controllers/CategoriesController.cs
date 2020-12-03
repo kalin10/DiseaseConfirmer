@@ -4,6 +4,7 @@
 
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Categories;
+    using DiseaseConfirmer.Web.ViewModels.Diseases;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -63,7 +64,7 @@
                 return this.NotFound();
             }
 
-            var diseases = await this.diseasesService.GetAllByCategoryAsync<DiseaseInCategoryViewModel>(name);
+            var diseases = await this.diseasesService.GetAllByCategoryAsync<DiseaseViewModel>(name);
 
             viewModel.Diseases = diseases;
 

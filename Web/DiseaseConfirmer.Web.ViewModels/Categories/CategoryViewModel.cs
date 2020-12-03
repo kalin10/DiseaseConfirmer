@@ -1,11 +1,10 @@
 ﻿namespace DiseaseConfirmer.Web.ViewModels.Categories
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
 
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Mapping;
+    using DiseaseConfirmer.Web.ViewModels.Diseases;
 
     public class CategoryViewModel : IMapFrom<Category>
     {
@@ -17,6 +16,6 @@
 
         public string AddDiseaseButtonUrl => $"/d/{this.Name?.Replace(' ', '-')}/Add";
 
-        public IEnumerable<DiseaseInCategoryViewModel> Diseases { get; set; }
+        public IEnumerable<DiseaseViewModel> Diseases { get; set; }
     }
 }

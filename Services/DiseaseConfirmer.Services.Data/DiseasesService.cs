@@ -96,16 +96,16 @@
             return disease;
         }
 
-        public async Task<T> GetByNameAsync<T>(string name)
-        {
-            string changedName = name.Replace('-', ' ');
+        //public async Task<T> GetByNameAsync<T>(string name)
+        //{
+        //    string changedName = name.Replace('-', ' ');
 
-            var disease = await this.diseasesRepository.All()
-                .Where(x => x.Name == changedName)
-                .To<T>()
-                .FirstOrDefaultAsync();
+        //    var disease = await this.diseasesRepository.All()
+        //        .Where(x => x.Name == changedName)
+        //        .To<T>()
+        //        .FirstOrDefaultAsync();
 
-            return disease;
-        }
+        //    return disease;
+        //}
     }
 }
