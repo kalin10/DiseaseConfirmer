@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Review Your Inquiries!<a href="/Inquiries/Add" class="btn btn-secondary btn-sm">Create Inquiry</a></h1>
+    <h1 class="display-4">Review Your Inquiries!<a id="floatRight" asp-controller="Inquiries" asp-action="Add" class="btn btn-secondary btn-sm">Create Inquiry</a></h1>
 
     @Html.Partial("_DisplayInquiriesPartial", Model)
 

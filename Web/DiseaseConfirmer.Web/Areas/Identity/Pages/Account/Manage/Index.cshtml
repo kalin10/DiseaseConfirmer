@@ -1,6 +1,7 @@
 ﻿@page
-@model IndexModel
 @using DiseaseConfirmer.Common; 
+
+@model IndexModel
 @{
     ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
@@ -29,6 +30,29 @@
                 <input asp-for="Input.PhoneNumber" class="form-control" />
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
+            @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
+            {
+                <div class="form-group">
+                    <label asp-for="Input.Workplace"></label>
+                    <input asp-for="Input.Workplace" class="form-control" />
+                    <span asp-validation-for="Input.Workplace" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Degrees"></label>
+                    <input asp-for="Input.Degrees" class="form-control" />
+                    <span asp-validation-for="Input.Degrees" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Experience"></label>
+                    <input asp-for="Input.Experience" class="form-control" />
+                    <span asp-validation-for="Input.Experience" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.Awards"></label>
+                    <input asp-for="Input.Awards" class="form-control" />
+                    <span asp-validation-for="Input.Awards" class="text-danger"></span>
+                </div>
+            }
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
