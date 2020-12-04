@@ -16,17 +16,20 @@
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUsersService usersService;
         private readonly ICareersInfoService careersInfoService;
+        private readonly IDoctorsService doctorsService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUsersService usersService,
+            IDoctorsService doctorsService,
             ICareersInfoService careersInfoService)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.usersService = usersService;
             this.careersInfoService = careersInfoService;
+            this.doctorsService = doctorsService;
         }
 
         public string Username { get; set; }
@@ -58,6 +61,9 @@
 
             [Display(Name = "Awards")]
             public string Awards { get; set; }
+
+            [Display(Name = "Name of category")]
+            public string CategoryName { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -65,6 +71,7 @@
             var userName = await this._userManager.GetUserNameAsync(user);
             var phoneNumber = await this._userManager.GetPhoneNumberAsync(user);
 
+            string categoryName = string.Empty;
             string workplace = string.Empty;
             string degrees = string.Empty;
             string awards = string.Empty;
@@ -72,12 +79,16 @@
 
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
             {
+                if (user.CategoryId.HasValue)
+                {
+                    categoryName = await this.doctorsService.GetCategoryNameByDoctorId(user.Id);
+                }
+
                 workplace = await this.careersInfoService.GetWorkplaceAsync(user.Id);
                 degrees = await this.careersInfoService.GetDegreesAsync(user.Id);
                 awards = await this.careersInfoService.GetAwardsAsync(user.Id);
                 experience = await this.careersInfoService.GetExperienceAsync(user.Id);
             }
-
 
             this.Username = userName;
             this.FirstName = await this.usersService.GetFirstNameByIdAsync(user.Id);
@@ -90,6 +101,7 @@
 
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
             {
+                this.Input.CategoryName = categoryName;
                 this.Input.Workplace = workplace;
                 this.Input.Degrees = degrees;
                 this.Input.Awards = awards;
@@ -113,6 +125,11 @@
                 this.Input.Awards = user.CareerInfo.Awards;
                 this.Input.Degrees = user.CareerInfo.Degrees;
                 this.Input.Experience = user.CareerInfo.Experience;
+                if (user.CategoryId.HasValue)
+                {
+                    this.Input.CategoryName = user.Category.Name;
+                }
+
             }
 
             return this.Page();
@@ -138,6 +155,7 @@
             string degrees = string.Empty;
             string awards = string.Empty;
             string experience = string.Empty;
+            string categoryName = string.Empty;
 
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
             {
@@ -145,6 +163,21 @@
                 degrees = await this.careersInfoService.GetDegreesAsync(user.Id);
                 awards = await this.careersInfoService.GetAwardsAsync(user.Id);
                 experience = await this.careersInfoService.GetExperienceAsync(user.Id);
+                if (user.CategoryId.HasValue)
+                {
+                categoryName = await this.doctorsService.GetCategoryNameByDoctorId(user.Id);
+                }
+
+                if (this.Input.CategoryName != categoryName)
+                {
+                    bool isChanged = await this.doctorsService.ChangeCategoryAsync(user.Id, this.Input.CategoryName);
+
+                    if (!isChanged)
+                    {
+                        this.StatusMessage = "Category does not exist.";
+                        return this.RedirectToPage();
+                    }
+                }
 
                 if (this.Input.Workplace != workplace)
                 {
@@ -166,8 +199,6 @@
                     await this.careersInfoService.ChangeExperienceAsync(user.Id, this.Input.Experience);
                 }
             }
-
-
 
             if (this.Input.PhoneNumber != phoneNumber)
             {

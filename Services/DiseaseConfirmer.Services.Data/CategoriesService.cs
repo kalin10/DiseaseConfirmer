@@ -46,6 +46,18 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
+        public async Task<bool> DoesCategoryExist(string name)
+        {
+            Category category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Name == name);
+
+            if (category == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task EditAsync(int id, string name, string description)
         {
             Category category = await this.categoriesRepository.All()
@@ -99,6 +111,14 @@
             return category;
         }
 
+        public async Task<Category> GetCategoryByName(string name)
+        {
+            Category category = await this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == name);
+
+            return category;
+        }
+
         public async Task<int> GetIdByNameAsync(string name)
         {
             var category = await this.categoriesRepository
@@ -106,6 +126,15 @@
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             return category.Id;
+        }
+
+        public async Task<string> GetNameByIdAsync(int id)
+        {
+            var category = await this.categoriesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return category.Name;
         }
     }
 }

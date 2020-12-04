@@ -52,6 +52,11 @@
                     <input asp-for="Input.Awards" class="form-control" />
                     <span asp-validation-for="Input.Awards" class="text-danger"></span>
                 </div>
+                <div class="form-group">
+                    <label asp-for="Input.CategoryName"></label>
+                    <input asp-for="Input.CategoryName" class="form-control" />
+                    <span asp-validation-for="Input.CategoryName" class="text-danger"></span>
+                </div>
             }
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
