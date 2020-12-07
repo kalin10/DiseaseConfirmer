@@ -17,10 +17,7 @@
     <p><i class="fas fa-info"></i> @Model.Description</p>
 </div>
 
-<div >
-    
-    
-    <div class="keys">
+<div>
         @foreach (var disease in Model.Diseases)
         {
             <button id="accordion" class="accordion">@disease.Name</button>
@@ -42,22 +39,6 @@
                 }
             </div>
         }
-    </div>
 </div>
 
-<script>
-    var acc = document.getElementsByClassName("accordion");
-    var i;
 
-    for (i = 0; i < acc.length; i++) {
-        acc[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.display === "block") {
-                panel.style.display = "none";
-            } else {
-                panel.style.display = "block";
-            }
-        });
-    }
-</script>

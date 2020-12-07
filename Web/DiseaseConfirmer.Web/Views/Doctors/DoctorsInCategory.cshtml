@@ -1,0 +1,49 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Doctors.DoctorsViewModel
+@using DiseaseConfirmer.Common
+
+@{
+    this.ViewData["Title"] = "Home Page";
+}
+<div class="text-center">
+    <h2>@Model.CategoryName</h2>
+</div>
+
+<div class="dropdown" data-hover="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        Categories <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" style="margin-top: 0">
+        @foreach (var name in Model.CategoiesNames)
+        {
+            <li>
+                <a asp-controller="Doctors" asp-action="DoctorsInCategory" asp-route-categoryName="@name">@name</a>
+            </li>
+
+        }
+    </ul>
+</div>
+<hr />
+<div>
+        @foreach (var doctor in Model.Doctors)
+        {
+            <button id="accordion" class="accordion">@doctor.FirstName @doctor.LastName (@doctor.Username)</button>
+            <div class="panel" style="display:none">
+
+                <p>
+                    <h5><strong>Workplace:</strong>  @doctor.CareerInfoWorkplace</h5>
+                </p>
+                <h5><strong>Experience:</strong></h5>
+                <p>@doctor.CareerInfoExperience</p>
+                <h5><strong>Degrees:</strong></h5>
+                <p>@doctor.CareerInfoDegrees</p>
+                @if (!string.IsNullOrEmpty(@doctor.CareerInfoAwards))
+                {
+                    <h5><strong>Awards:</strong></h5>
+                    <p class="text-justify">@doctor.CareerInfoAwards</p>
+                }
+                <h3><strong>Contact info:</strong></h3>
+                <p><strong>Email:</strong>@doctor.Email</p>
+                <p><strong>Phone number:</strong>@doctor.PhoneNumber</p>
+            </div>
+        }
+</div>

@@ -111,6 +111,13 @@
             return category;
         }
 
+        public async Task<IEnumerable<string>> GetCategoriesNames()
+        {
+            return await this.categoriesRepository.All()
+                .Select(x => x.Name)
+                .ToListAsync();
+        }
+
         public async Task<Category> GetCategoryByName(string name)
         {
             Category category = await this.categoriesRepository.All()

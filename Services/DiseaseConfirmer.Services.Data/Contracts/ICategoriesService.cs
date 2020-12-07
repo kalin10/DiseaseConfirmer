@@ -9,6 +9,8 @@
     {
         Task<IEnumerable<T>> GetAllAsync<T>(int? count = null);
 
+        Task<IEnumerable<string>> GetCategoriesNames();
+
         Task<T> GetByNameAsync<T>(string name);
 
         Task<T> GetByIdAsync<T>(int id);

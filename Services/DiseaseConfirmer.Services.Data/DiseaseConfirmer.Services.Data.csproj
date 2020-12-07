@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DiseaseConfirmer.Data.Common\DiseaseConfirmer.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\DiseaseConfirmer.Data.Models\DiseaseConfirmer.Data.Models.csproj" />
+    <ProjectReference Include="..\..\DiseaseConfirmer.Common\DiseaseConfirmer.Common.csproj" />
     <ProjectReference Include="..\DiseaseConfirmer.Services.Mapping\DiseaseConfirmer.Services.Mapping.csproj" />
   </ItemGroup>
 

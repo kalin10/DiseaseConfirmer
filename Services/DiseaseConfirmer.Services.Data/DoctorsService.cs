@@ -1,24 +1,37 @@
 ﻿namespace DiseaseConfirmer.Services.Data
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
+    using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Services.Data.Contracts;
+    using DiseaseConfirmer.Services.Mapping;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     public class DoctorsService : IDoctorsService
     {
         private readonly IDeletableEntityRepository<ApplicationUser> doctorsRepository;
         private readonly ICategoriesService categoriesService;
+        private readonly RoleManager<ApplicationRole> roleManager;
+        private readonly string doctorRoleId;
+
 
         public DoctorsService(
             IDeletableEntityRepository<ApplicationUser> doctorsRepository,
-            ICategoriesService categoriesService)
+            ICategoriesService categoriesService,
+            RoleManager<ApplicationRole> roleManager)
         {
+            this.roleManager = roleManager;
             this.doctorsRepository = doctorsRepository;
             this.categoriesService = categoriesService;
+            this.doctorRoleId = this.roleManager
+                .Roles
+                .First(x => x.Name.ToLower() == GlobalConstants.DoctorRoleName.ToLower())
+                .Id;
         }
 
         public async Task AddCareerInfoId(string doctorId, int careerInfoId)
@@ -61,6 +74,24 @@
             string categoryName = await this.categoriesService.GetNameByIdAsync(categoryId.Value);
 
             return categoryName;
+        }
+
+        public async Task<IEnumerable<T>> GetDoctorsByCategoryNameAsync<T>(string categoryName)
+        {
+            if (string.IsNullOrEmpty(categoryName))
+            {
+                return await this.doctorsRepository.All()
+                    .Where(d => d.Roles.Any(z => z.RoleId == this.doctorRoleId) && d.CategoryId != null)
+                    .To<T>()
+                    .ToListAsync();
+            }
+            else
+            {
+                return await this.doctorsRepository.All()
+                    .Where(d => d.Roles.Any(z => z.RoleId == this.doctorRoleId) && d.Category.Name == categoryName)
+                    .To<T>()
+                    .ToListAsync();
+            }
         }
     }
 }

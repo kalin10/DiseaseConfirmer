@@ -62,3 +62,7 @@
 #floatRight{
     float:right;
 }
+
+.panel p {
+    word-wrap: break-word;
+}

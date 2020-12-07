@@ -6,7 +6,9 @@
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
     <p>Look up the info of diff diseases.</p>
-    <a href="/Categories/All" class="btn btn-block btn-primary">Categories</a>
+    <a asp-controller="Categories" asp-action="All" class="btn btn-block btn-primary">Categories</a>
     <p>Check people's Inquiries and get opinion about your problem.</p>
-    <a href="/Inquiries/All" class="btn btn-block btn-primary">Inquiries</a>
+    <a asp-controller="Inquiries" asp-action="All" class="btn btn-block btn-primary">Inquiries</a>
+    <p>See doctors.</p>
+    <a asp-controller="Doctors" asp-action="DoctorsInCategory" class="btn btn-block btn-primary">Doctors</a>
 </div>
