@@ -174,6 +174,7 @@
 
                     if (!isChanged)
                     {
+                        //this.ModelState.AddModelError("CategoryName", "Category does not exist.");
                         this.StatusMessage = "Category does not exist.";
                         return this.RedirectToPage();
                     }

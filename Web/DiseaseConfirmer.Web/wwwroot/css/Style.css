@@ -63,6 +63,36 @@
     float:right;
 }
 
+#floatLeft {
+    float: left;
+}
+
+#inquiryBox {
+    background-color: lightskyblue;
+    color: black;
+}
+
+#inquiryHeader{
+    color:black;
+    font-size: 24px;
+    font-weight:bold;
+}
+
+#categoryHeader {
+    color: black;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#categoryBody {
+    font-size: 18px;
+    text-align: left;
+}
+
+#inquiryLink{
+    color:black;
+}
+
 .panel p {
     word-wrap: break-word;
 }

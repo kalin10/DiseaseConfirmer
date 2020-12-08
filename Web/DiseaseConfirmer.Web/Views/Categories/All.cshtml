@@ -19,8 +19,12 @@
 
     @foreach (var category in Model.Categories)
     {
-        <a href="@category.Url" class="btn btn-block btn-primary">@category.Name</a>
-        <p style="text-align:left">@category.ShortDescription</p>
+        <div class="card">
+            <a id="categoryHeader" href="@category.Url" class="btn btn-block btn-primary">@category.Name</a>
+            <p id="categoryBody">@category.ShortDescription</p>
+        </div>
+
+        <br />
     }
 
 </div>

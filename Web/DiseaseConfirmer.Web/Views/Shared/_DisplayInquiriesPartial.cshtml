@@ -2,6 +2,23 @@
 
 @foreach (var inquiry in Model.Inqueries)
 {
-<h4 class="media-heading"><a asp-controller="Inquiries" asp-action="ById" asp-route-id="@inquiry.Id">@inquiry.Heading</a></h4>
-    <p><a style="float: left">Symptoms: @inquiry.ShortSymptoms</a><a style="float: right"><i class="far fa-calendar-alt"></i><time datetime="@inquiry.CreatedOn.ToString("O")"></time></a><br /></p>
+    <div class="card">
+        <div id="inquiryHeader" class="card-header">
+            <a id="inquiryLink" asp-controller="Inquiries" asp-action="ById" asp-route-id="@inquiry.Id">
+                @inquiry.Heading
+            </a>
+        </div>
+
+        <div class="card-body">
+            <blockquote class="blockquote mb-0">
+                <p><a id="floatLeft">Symptoms: @inquiry.ShortSymptoms</a><a id="floatRight"><i class="far fa-calendar-alt"></i><time datetime="@inquiry.CreatedOn.ToString("O")"></time></a><br /></p>
+
+                <footer id="floatLeft" class="blockquote-footer">@inquiry.UserUserName</footer>
+            </blockquote>
+        </div>
+    </div>
+
+
+
+    <br />
 }

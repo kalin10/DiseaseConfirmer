@@ -55,7 +55,7 @@
                 Category category = await this.categoriesService.GetCategoryByName(categoryName);
 
                 user.CategoryId = category.Id;
-                user.Category = category;
+                //user.Category = category;
                 await this.doctorsRepository.SaveChangesAsync();
 
                 return true;
