@@ -41,6 +41,11 @@ namespace DiseaseConfirmer.Data.Models
 
         public string LastName { get; set; }
 
+        public int? ProfilePictureId { get; set; }
+
+        public ProfilePicture ProfilePicture { get; set; }
+
+        // Doctor
         public int? CategoryId { get; set; }
 
         public virtual Category Category { get; set; }

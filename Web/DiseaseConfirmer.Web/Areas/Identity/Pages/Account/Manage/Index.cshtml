@@ -1,5 +1,5 @@
 ﻿@page
-@using DiseaseConfirmer.Common; 
+@using DiseaseConfirmer.Common;
 
 @model IndexModel
 @{
@@ -11,8 +11,17 @@
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-6">
-        <form id="profile-form" method="post">
+        <form id="profile-form" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <img src="@Model.ProfilePictureUrl" alt="Alternate Text" class="w-100" />
+            <div class="file-field">
+                <a class="btn-floating peach-gradient mt-0 float-left">
+                    <i class="fas fa-paperclip" aria-hidden="true"></i>
+                    <input asp-for="Input.ProfilePicture" type="file">
+                </a>
+            </div>
+            <br />
+            <br />
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />

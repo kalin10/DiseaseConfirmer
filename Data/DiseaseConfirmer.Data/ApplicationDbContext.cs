@@ -34,6 +34,8 @@
 
         public DbSet<CareerInfo> CareersInfo { get; set; }
 
+        public DbSet<ProfilePicture> ProfilePictures { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -67,6 +69,12 @@
                 .HasOne(c => c.Doctor)
                 .WithOne(u => u.CareerInfo)
                 .HasForeignKey<ApplicationUser>(u => u.CareerInfoId);
+
+            builder
+                .Entity<ProfilePicture>()
+                .HasOne(p => p.User)
+                .WithOne(u => u.ProfilePicture)
+                .HasForeignKey<ApplicationUser>(u => u.ProfilePictureId);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

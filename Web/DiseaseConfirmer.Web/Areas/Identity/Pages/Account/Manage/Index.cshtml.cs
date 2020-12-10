@@ -5,7 +5,10 @@
 
     using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Contracts;
     using DiseaseConfirmer.Services.Data.Contracts;
+    using DiseaseConfirmer.Web.Views.Users;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -17,19 +20,25 @@
         private readonly IUsersService usersService;
         private readonly ICareersInfoService careersInfoService;
         private readonly IDoctorsService doctorsService;
+        private readonly ICloudinaryService cloudinaryService;
+        private readonly IProfilePictureService profilePictureService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IUsersService usersService,
             IDoctorsService doctorsService,
-            ICareersInfoService careersInfoService)
+            ICareersInfoService careersInfoService,
+            ICloudinaryService cloudinaryService,
+            IProfilePictureService profilePictureService)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.usersService = usersService;
             this.careersInfoService = careersInfoService;
             this.doctorsService = doctorsService;
+            this.cloudinaryService = cloudinaryService;
+            this.profilePictureService = profilePictureService;
         }
 
         public string Username { get; set; }
@@ -37,6 +46,8 @@
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string ProfilePictureUrl { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -64,6 +75,13 @@
 
             [Display(Name = "Name of category")]
             public string CategoryName { get; set; }
+
+            //public string ProfilePictureUrl { get; set; }
+
+            [Display(Name = "ProfilePicture")]
+            public IFormFile ProfilePicture { get; set; }
+
+            //public ChangeProfilePictureInputModel PictureModel { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -94,9 +112,22 @@
             this.FirstName = await this.usersService.GetFirstNameByIdAsync(user.Id);
             this.LastName = await this.usersService.GetLastNameByIdAsync(user.Id);
 
+            string profilePictureUrl = GlobalConstants.BaseProfilePicture; //@"https://res.cloudinary.com/dhyskq1at/image/upload/v1607544995/samples/people/blank-profile-picture-973460_640_l6mh0h.png";
+            if (user.ProfilePictureId.HasValue)
+            {
+                profilePictureUrl = await this.usersService.GetProfilePictureUrlAsync(user.Id);
+            }
+
+            this.ProfilePictureUrl = profilePictureUrl;
+
             this.Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
+                //PictureModel = new ChangeProfilePictureInputModel
+                //{
+                //    UserId = user.Id,
+                //},
+                //ProfilePictureUrl = profilePictureUrl,
             };
 
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
@@ -129,7 +160,6 @@
                 {
                     this.Input.CategoryName = user.Category.Name;
                 }
-
             }
 
             return this.Page();
@@ -157,6 +187,14 @@
             string experience = string.Empty;
             string categoryName = string.Empty;
 
+            string profilePictureUrl = await this.cloudinaryService.UploudPictureAsync(this.Input.ProfilePicture);
+
+            if (this.Input.ProfilePicture != null)
+            {
+                int profilePictureId = await this.profilePictureService.CreateAsync(profilePictureUrl, user.Id);
+                await this.usersService.ChangeProfilePictureAsync(user.Id, profilePictureId);
+            }
+
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
             {
                 workplace = await this.careersInfoService.GetWorkplaceAsync(user.Id);
@@ -165,7 +203,7 @@
                 experience = await this.careersInfoService.GetExperienceAsync(user.Id);
                 if (user.CategoryId.HasValue)
                 {
-                categoryName = await this.doctorsService.GetCategoryNameByDoctorId(user.Id);
+                    categoryName = await this.doctorsService.GetCategoryNameByDoctorId(user.Id);
                 }
 
                 if (this.Input.CategoryName != categoryName)

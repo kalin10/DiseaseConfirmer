@@ -1,13 +1,15 @@
 ﻿namespace DiseaseConfirmer.Web
 {
     using System.Reflection;
-
+    using CloudinaryDotNet;
     using DiseaseConfirmer.Data;
     using DiseaseConfirmer.Data.Common;
     using DiseaseConfirmer.Data.Common.Repositories;
     using DiseaseConfirmer.Data.Models;
     using DiseaseConfirmer.Data.Repositories;
     using DiseaseConfirmer.Data.Seeding;
+    using DiseaseConfirmer.Services;
+    using DiseaseConfirmer.Services.Contracts;
     using DiseaseConfirmer.Services.Data;
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
@@ -59,6 +61,15 @@
 
             services.AddSingleton(this.configuration);
 
+            // Add cloudinary
+            var cloudinary = new Cloudinary(new Account()
+            {
+                Cloud = this.configuration["CloudinarySettings:CloudName"],
+                ApiKey = this.configuration["CloudinarySettings:ApiKey"],
+                ApiSecret = this.configuration["CloudinarySettings:ApiSecret"],
+            });
+            services.AddSingleton(cloudinary);
+
             // Data repositories
             services.AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
@@ -74,6 +85,8 @@
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<ICareersInfoService, CareersInfoService>();
             services.AddTransient<IDoctorsService, DoctorsService>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddTransient<IProfilePictureService, ProfilePictureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

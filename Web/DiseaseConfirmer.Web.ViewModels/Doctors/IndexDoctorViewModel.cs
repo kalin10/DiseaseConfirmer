@@ -24,5 +24,7 @@
         public string CareerInfoExperience { get; set; }
 
         public string CareerInfoAwards { get; set; }
+
+        public string ProfilePictureImageUrl { get; set; }
     }
 }

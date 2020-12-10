@@ -14,5 +14,9 @@
         Task<string> GetLastNameByIdAsync(string userId);
 
         Task<IEnumerable<T>> GetAllUsersAsync<T>();
+
+        Task<string> GetProfilePictureUrlAsync(string userId);
+
+        Task ChangeProfilePictureAsync(string userId, int pictureId);
     }
 }
