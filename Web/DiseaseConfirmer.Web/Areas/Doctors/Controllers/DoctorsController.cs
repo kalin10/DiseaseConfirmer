@@ -2,7 +2,6 @@
 {
     using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Web.Controllers;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 

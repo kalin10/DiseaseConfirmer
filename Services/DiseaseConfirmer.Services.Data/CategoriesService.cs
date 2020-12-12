@@ -48,7 +48,8 @@
 
         public async Task<bool> DoesCategoryExist(string name)
         {
-            Category category = await this.categoriesRepository.All().FirstOrDefaultAsync(x => x.Name == name);
+            Category category = await this.categoriesRepository.All()
+                .FirstOrDefaultAsync(x => x.Name == name);
 
             if (category == null)
             {
@@ -86,7 +87,7 @@
             else
             {
                 return await this.categoriesRepository
-                    .All()
+                    .AllAsNoTracking()
                     .OrderBy(x => x.Name)
                     .To<T>()
                     .ToListAsync();
@@ -113,35 +114,28 @@
 
         public async Task<IEnumerable<string>> GetCategoriesNames()
         {
-            return await this.categoriesRepository.All()
+            return await this.categoriesRepository
+                .All()
                 .Select(x => x.Name)
                 .ToListAsync();
         }
 
         public async Task<Category> GetCategoryByName(string name)
         {
-            Category category = await this.categoriesRepository.All()
+            Category category = await this.categoriesRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             return category;
         }
 
-        public async Task<int> GetIdByNameAsync(string name)
+        public async Task<Category> GetCategoryById(int id)
         {
-            var category = await this.categoriesRepository
-                .All()
-                .FirstOrDefaultAsync(x => x.Name == name);
-
-            return category.Id;
-        }
-
-        public async Task<string> GetNameByIdAsync(int id)
-        {
-            var category = await this.categoriesRepository
+            Category category = await this.categoriesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return category.Name;
+            return category;
         }
     }
 }

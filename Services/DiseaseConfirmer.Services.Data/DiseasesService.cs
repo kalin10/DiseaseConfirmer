@@ -44,15 +44,19 @@
 
         public async Task DeleteAsync(int id)
         {
-            Disease disease = await this.diseasesRepository.All()
+            Disease disease = await this.diseasesRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
+
             this.diseasesRepository.Delete(disease);
+
             await this.diseasesRepository.SaveChangesAsync();
         }
 
         public async Task EditAsync(int id, string name, string symptoms, string cause, string treatment, string description)
         {
-            Disease disease = await this.diseasesRepository.All()
+            Disease disease = await this.diseasesRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (disease != null)
@@ -73,39 +77,34 @@
 
             if (count.HasValue)
             {
-                return await this.diseasesRepository.All()
-                .Where(x => x.Category.Name == changedName)
-                .OrderBy(x => x.Name)
-                .Take(count.Value)
-                .To<T>()
-                .ToListAsync();
+                return await this.diseasesRepository
+                    .All()
+                    .Where(x => x.Category.Name == changedName)
+                    .OrderBy(x => x.Name)
+                    .Take(count.Value)
+                    .To<T>()
+                    .ToListAsync();
             }
-
-            return await this.diseasesRepository.All()
-                .Where(x => x.Category.Name == changedName)
-                .OrderBy(x => x.Name)
-                .To<T>()
-                .ToListAsync();
+            else
+            {
+                return await this.diseasesRepository
+                                .All()
+                                .Where(x => x.Category.Name == changedName)
+                                .OrderBy(x => x.Name)
+                                .To<T>()
+                                .ToListAsync();
+            }
         }
 
         public async Task<T> GetByIdAsync<T>(int id)
         {
-            var disease = await this.diseasesRepository.All().Where(x => x.Id == id)
-                .To<T>().FirstOrDefaultAsync();
+            var disease = await this.diseasesRepository
+                .All()
+                .Where(x => x.Id == id)
+                .To<T>()
+                .FirstOrDefaultAsync();
 
             return disease;
         }
-
-        //public async Task<T> GetByNameAsync<T>(string name)
-        //{
-        //    string changedName = name.Replace('-', ' ');
-
-        //    var disease = await this.diseasesRepository.All()
-        //        .Where(x => x.Name == changedName)
-        //        .To<T>()
-        //        .FirstOrDefaultAsync();
-
-        //    return disease;
-        //}
     }
 }

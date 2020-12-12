@@ -37,6 +37,11 @@
         {
             var model = await this.categoriesService.GetByIdAsync<EditCategoryInputModel>(id);
 
+            if (model == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(model);
         }
 

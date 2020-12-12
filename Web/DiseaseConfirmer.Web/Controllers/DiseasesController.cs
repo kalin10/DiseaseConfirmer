@@ -33,7 +33,8 @@
                 return this.View(input);
             }
 
-            var categoryId = await this.categoriesService.GetIdByNameAsync(categoryName);
+            var category = await this.categoriesService.GetCategoryByName(categoryName);
+            var categoryId = category.Id;
 
             var diseaseId = await this.diseasesService
                 .CreateAsync(categoryId, input.Name, input.Symptoms, input.Cause, input.Тreatment, input.Description);

@@ -20,14 +20,16 @@
 
         public int GetVotes(int diseaseId)
         {
-            return this.votesRepository.All()
+            return this.votesRepository
+                .All()
                 .Where(x => x.DiseaseId == diseaseId)
                 .Sum(x => (int)x.Type);
         }
 
         public async Task VoteAsync(int diseaseId, string userId, bool isUpVote)
         {
-            Vote vote = await this.votesRepository.All()
+            Vote vote = await this.votesRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.DiseaseId == diseaseId && x.UserId == userId);
 
             if (vote != null)

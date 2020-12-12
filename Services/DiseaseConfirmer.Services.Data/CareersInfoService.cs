@@ -72,7 +72,8 @@
 
         public async Task<string> GetAwardsAsync(string doctorId)
         {
-            CareerInfo careerInfo = await this.careerInfoRepository.All()
+            CareerInfo careerInfo = await this.careerInfoRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.DoctorId == doctorId);
 
             return careerInfo.Awards;
@@ -80,7 +81,8 @@
 
         public async Task<string> GetDegreesAsync(string doctorId)
         {
-            CareerInfo careerInfo = await this.careerInfoRepository.All()
+            CareerInfo careerInfo = await this.careerInfoRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.DoctorId == doctorId);
 
             return careerInfo.Degrees;
@@ -88,7 +90,8 @@
 
         public async Task<string> GetExperienceAsync(string doctorId)
         {
-            CareerInfo careerInfo = await this.careerInfoRepository.All()
+            CareerInfo careerInfo = await this.careerInfoRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.DoctorId == doctorId);
 
             return careerInfo.Experience;
@@ -96,7 +99,8 @@
 
         public async Task<string> GetWorkplaceAsync(string doctorId)
         {
-            CareerInfo careerInfo = await this.careerInfoRepository.All()
+            CareerInfo careerInfo = await this.careerInfoRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.DoctorId == doctorId);
 
             return careerInfo.Workplace;

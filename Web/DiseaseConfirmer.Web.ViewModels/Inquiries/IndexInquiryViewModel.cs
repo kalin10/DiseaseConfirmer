@@ -21,7 +21,5 @@
             this.Symptoms?.Length > 50
              ? this.Symptoms.Substring(0, 50) + "..."
             : this.Symptoms;
-
-        //public string Url => $"/i/{this.Heading?.Replace(' ', '-')}";
     }
 }

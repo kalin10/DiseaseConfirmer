@@ -25,14 +25,16 @@
 
         public async Task ChangeProfilePictureAsync(string userId, int pictureId)
         {
-            var user = await this.usersRepository.All()
+            var user = await this.usersRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
-            var profilePicture = await this.profilePictureRepository.All()
+            var profilePicture = await this.profilePictureRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == pictureId);
 
             user.ProfilePictureId = pictureId;
-            user.ProfilePicture = profilePicture;
+            //user.ProfilePicture = profilePicture;
 
             await this.usersRepository.SaveChangesAsync();
         }
@@ -66,13 +68,16 @@
 
         public async Task<string> GetProfilePictureUrlAsync(string userId)
         {
-            var user = await this.usersRepository.All()
+            var user = await this.usersRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == userId);
 
             if (user.ProfilePictureId.HasValue)
             {
-                var profilePicture = await this.profilePictureRepository.All()
+                var profilePicture = await this.profilePictureRepository
+                    .All()
                     .FirstOrDefaultAsync(x => x.Id == user.ProfilePictureId.Value);
+
                 return profilePicture.ImageUrl;
             }
 

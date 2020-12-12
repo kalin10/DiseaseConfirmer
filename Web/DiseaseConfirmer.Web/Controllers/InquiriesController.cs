@@ -11,7 +11,7 @@
 
     public class InquiriesController : BaseController
     {
-        private const int ItemsPerPage = 4;
+        private const int ItemsPerPage = 5;
 
         private readonly IInquiriesService inquiriesService;
 
@@ -34,6 +34,7 @@
                 InquiriesCount = await this.inquiriesService.GetCountAsync(),
                 Inqueries = await this.inquiriesService.GetAllAsync<IndexInquiryViewModel>(page, ItemsPerPage),
             };
+
             return this.View(viewModel);
         }
 
@@ -79,8 +80,7 @@
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
             var userId = claim.Value;
 
-            var inquiryId =
-                await this.inquiriesService.CreateAsync(input.Heading, input.Symptoms, input.DetailedInformation, userId);
+            await this.inquiriesService.CreateAsync(input.Heading, input.Symptoms, input.DetailedInformation, userId);
 
             return this.Redirect("/Inquiries/AllById");
         }
@@ -103,6 +103,11 @@
             var userName = user.Identity.Name;
 
             var inquiry = await this.inquiriesService.GetByIdAsync<InquiryViewModel>(id);
+
+            if (inquiry == null)
+            {
+                return this.NotFound();
+            }
 
             if (userName == inquiry.UserUserName || user.IsInRole(GlobalConstants.DoctorRoleName))
             {

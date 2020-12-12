@@ -15,10 +15,6 @@
 
         Task<T> GetByIdAsync<T>(int id);
 
-        Task<int> GetIdByNameAsync(string name);
-
-        Task<string> GetNameByIdAsync(int id);
-
         Task<int> CreateAsync(string name, string description);
 
         Task EditAsync(int id, string name, string description);
@@ -28,5 +24,7 @@
         Task<bool> DoesCategoryExist(string name);
 
         Task<Category> GetCategoryByName(string name);
+
+        Task<Category> GetCategoryById(int id);
     }
 }

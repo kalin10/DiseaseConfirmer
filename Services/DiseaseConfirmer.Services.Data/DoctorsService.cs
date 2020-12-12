@@ -19,7 +19,6 @@
         private readonly RoleManager<ApplicationRole> roleManager;
         private readonly string doctorRoleId;
 
-
         public DoctorsService(
             IDeletableEntityRepository<ApplicationUser> doctorsRepository,
             ICategoriesService categoriesService,
@@ -66,29 +65,36 @@
 
         public async Task<string> GetCategoryNameByDoctorId(string doctorId)
         {
-            ApplicationUser doctor = await this.doctorsRepository.All()
+            ApplicationUser doctor = await this.doctorsRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == doctorId);
 
             var categoryId = doctor.CategoryId;
 
-            string categoryName = await this.categoriesService.GetNameByIdAsync(categoryId.Value);
+            var category = await this.categoriesService.GetCategoryById(categoryId.Value);
 
-            return categoryName;
+            return category.Name;
         }
 
         public async Task<IEnumerable<T>> GetDoctorsByCategoryNameAsync<T>(string categoryName)
         {
             if (string.IsNullOrEmpty(categoryName))
             {
-                return await this.doctorsRepository.All()
+                return await this.doctorsRepository
+                    .All()
                     .Where(d => d.Roles.Any(z => z.RoleId == this.doctorRoleId) && d.CategoryId != null)
+                    .OrderBy(d => d.FirstName)
+                    .ThenBy(d => d.LastName)
                     .To<T>()
                     .ToListAsync();
             }
             else
             {
-                return await this.doctorsRepository.All()
+                return await this.doctorsRepository
+                    .All()
                     .Where(d => d.Roles.Any(z => z.RoleId == this.doctorRoleId) && d.Category.Name == categoryName)
+                    .OrderBy(d => d.FirstName)
+                    .ThenBy(d => d.LastName)
                     .To<T>()
                     .ToListAsync();
             }

@@ -22,6 +22,7 @@
         public async Task<ApplicationUser> AddUserToRoleAsync(string userId, string roleName)
         {
             var user = await this.usersService.GetUserByIdAsync(userId);
+
             await this.userManager.AddToRoleAsync(user, roleName);
 
             return user;
@@ -30,6 +31,7 @@
         public async Task<ApplicationUser> RemoveUserFromRoleAsync(string userId, string roleName)
         {
             var user = await this.usersService.GetUserByIdAsync(userId);
+
             await this.userManager.RemoveFromRoleAsync(user, roleName);
 
             return user;

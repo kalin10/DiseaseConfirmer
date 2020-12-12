@@ -19,7 +19,7 @@
             this.inquiriesRepository = inquiriesRepository;
         }
 
-        public async Task<int> CreateAsync(string heading, string symptoms, string detailedInformation, string userId)
+        public async Task CreateAsync(string heading, string symptoms, string detailedInformation, string userId)
         {
             var inquiry = new Inquiry
             {
@@ -31,23 +31,25 @@
 
             await this.inquiriesRepository.AddAsync(inquiry);
             await this.inquiriesRepository.SaveChangesAsync();
-
-            return inquiry.Id;
         }
 
         public async Task DeleteAsync(int id)
         {
-            Inquiry inquiry = await this.inquiriesRepository.All()
+            Inquiry inquiry = await this.inquiriesRepository
+                .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
+
             this.inquiriesRepository.Delete(inquiry);
+
             await this.inquiriesRepository.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 4, string userId = null)
+        public async Task<IEnumerable<T>> GetAllAsync<T>(int page, int itemsPerPage = 5, string userId = null)
         {
             if (!string.IsNullOrEmpty(userId))
             {
-                return await this.inquiriesRepository.All()
+                return await this.inquiriesRepository
+                    .All()
                     .Where(x => x.UserId == userId)
                     .OrderBy(x => x.CreatedOn)
                     .Skip((page - 1) * itemsPerPage)
@@ -57,7 +59,8 @@
             }
             else
             {
-                return await this.inquiriesRepository.All()
+                return await this.inquiriesRepository
+                    .All()
                     .OrderBy(x => x.CreatedOn)
                     .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage)
@@ -68,7 +71,8 @@
 
         public async Task<T> GetByIdAsync<T>(int id)
         {
-            var inquiry = await this.inquiriesRepository.All()
+            var inquiry = await this.inquiriesRepository
+                .All()
                 .Where(x => x.Id == id)
                 .To<T>()
                 .FirstOrDefaultAsync();
@@ -80,11 +84,15 @@
         {
             if (userId != null)
             {
-                return await this.inquiriesRepository.All().CountAsync(x => x.UserId == userId);
+                return await this.inquiriesRepository
+                    .All()
+                    .CountAsync(x => x.UserId == userId);
             }
             else
             {
-                return await this.inquiriesRepository.All().CountAsync();
+                return await this.inquiriesRepository
+                    .All()
+                    .CountAsync();
             }
         }
     }

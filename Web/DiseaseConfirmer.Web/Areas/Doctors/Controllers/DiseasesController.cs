@@ -2,11 +2,8 @@
 {
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Services.Data.Contracts;
-    using DiseaseConfirmer.Web.Controllers;
     using DiseaseConfirmer.Web.ViewModels.Diseases;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class DiseasesController : DoctorsController
@@ -21,6 +18,11 @@
         public async Task<IActionResult> Edit(int id)
         {
             var model = await this.diseasesService.GetByIdAsync<EditDiseaseInputModel>(id);
+
+            if (model == null)
+            {
+                return this.NotFound();
+            }
 
             return this.View(model);
         }

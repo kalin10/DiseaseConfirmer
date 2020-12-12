@@ -5,7 +5,6 @@
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Web.ViewModels.Categories;
     using DiseaseConfirmer.Web.ViewModels.Diseases;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class CategoriesController : BaseController
@@ -17,32 +16,6 @@
         {
             this.categoriesService = categoriesService;
             this.diseasesService = diseasesService;
-        }
-
-        [Authorize(Roles = "Doctor")]
-        public IActionResult Add()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Doctor")]
-        public async Task<IActionResult> Add(CategoryCreateInputModel input)
-        {
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(input);
-            }
-
-            var categoryId = await this.categoriesService.CreateAsync(input.Name, input.Description);
-
-            if (categoryId == -1)
-            {
-                this.ModelState.AddModelError("Name", "Category already exists");
-                return this.View(input);
-            }
-
-            return this.Redirect("/Categories/All");
         }
 
         public async Task<IActionResult> All()

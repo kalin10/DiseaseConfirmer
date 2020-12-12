@@ -2,10 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Services.Data.Contracts;
-    using DiseaseConfirmer.Web.Controllers;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class CommentsController : DoctorsController
