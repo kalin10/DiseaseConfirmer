@@ -13,7 +13,7 @@
 
         public virtual Comment Parent { get; set; }
 
-        [Required]
+
         public int InquiryId { get; set; }
 
         public virtual Inquiry Inquiry { get; set; }

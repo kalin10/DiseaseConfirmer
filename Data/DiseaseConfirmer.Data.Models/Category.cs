@@ -1,6 +1,7 @@
 ﻿namespace DiseaseConfirmer.Data.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     using DiseaseConfirmer.Data.Common.Models;
 
@@ -12,6 +13,7 @@
             this.Doctors = new HashSet<ApplicationUser>();
         }
 
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }

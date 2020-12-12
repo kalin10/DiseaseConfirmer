@@ -12,8 +12,10 @@
             this.Comments = new HashSet<Comment>();
         }
 
+        [Required]
         public string Heading { get; set; }
 
+        [Required]
         public string Symptoms { get; set; }
 
         public string DetailedInformation { get; set; }

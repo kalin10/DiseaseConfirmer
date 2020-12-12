@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace DiseaseConfirmer.Data.Migrations
+﻿namespace DiseaseConfirmer.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddProfilePicture : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

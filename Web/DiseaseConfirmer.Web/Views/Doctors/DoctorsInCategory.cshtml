@@ -28,24 +28,32 @@
         {
             <button id="accordion" class="accordion">@doctor.FirstName @doctor.LastName (@doctor.Username)</button>
             <div class="panel" style="display:none">
+                @if (@doctor.ProfilePictureImageUrl != null)
+                {
                     <img class="media col-md-6" src="@doctor.ProfilePictureImageUrl" alt="Alternate Text" class="w-100" />
-                
-                    <p>
-                        <h5><strong>Workplace:</strong>  @doctor.CareerInfoWorkplace</h5>
-                    </p>
-                    <h5><strong>Experience:</strong></h5>
-                    <p>@doctor.CareerInfoExperience</p>
-                    <h5><strong>Degrees:</strong></h5>
-                    <p>@doctor.CareerInfoDegrees</p>
-                    @if (!string.IsNullOrEmpty(@doctor.CareerInfoAwards))
-                    {
-                        <h5><strong>Awards:</strong></h5>
-                        <p class="text-justify">@doctor.CareerInfoAwards</p>
-                    }
-                    <h3><strong>Contact info:</strong></h3>
-                    <p><strong>Email:</strong>@doctor.Email</p>
-                    <p><strong>Phone number:</strong>@doctor.PhoneNumber</p>
-                
+
+                }
+                else
+                {
+                    <img class="media col-md-6" src="@GlobalConstants.BaseProfilePicture" alt="Alternate Text" class="w-100" />
+
+                }
+                <p>
+                    <h5><strong>Workplace:</strong>  @doctor.CareerInfoWorkplace</h5>
+                </p>
+                <h5><strong>Experience:</strong></h5>
+                <p>@doctor.CareerInfoExperience</p>
+                <h5><strong>Degrees:</strong></h5>
+                <p>@doctor.CareerInfoDegrees</p>
+                @if (!string.IsNullOrEmpty(@doctor.CareerInfoAwards))
+                {
+                    <h5><strong>Awards:</strong></h5>
+                    <p class="text-justify">@doctor.CareerInfoAwards</p>
+                }
+                <h3><strong>Contact info:</strong></h3>
+                <p><strong>Email:</strong>@doctor.Email</p>
+                <p><strong>Phone number:</strong>@doctor.PhoneNumber</p>
+
             </div>
         }
 </div>
