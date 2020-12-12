@@ -39,6 +39,32 @@
             await this.usersRepository.SaveChangesAsync();
         }
 
+        public async Task DeleteUserAsync(string userId)
+        {
+            var user = await this.usersRepository
+                .All()
+                .FirstOrDefaultAsync(u => u.Id == userId);
+
+            this.usersRepository.Delete(user);
+            await this.usersRepository.SaveChangesAsync();
+        }
+
+        public async Task<bool> DoesUserWithDeletedExist(string userName)
+        {
+            var user = await this.usersRepository
+                .AllWithDeleted()
+                .FirstOrDefaultAsync(u => u.UserName == userName);
+
+            if (user == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public async Task<IEnumerable<T>> GetAllUsersAsync<T>()
         {
             return await this.usersRepository

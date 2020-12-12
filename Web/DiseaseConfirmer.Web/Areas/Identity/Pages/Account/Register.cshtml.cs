@@ -9,6 +9,7 @@
     using System.Threading.Tasks;
 
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Services.Data.Contracts;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -25,17 +26,20 @@
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly IUsersService usersService;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IUsersService usersService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            this.usersService = usersService;
         }
 
         [BindProperty]
@@ -91,6 +95,12 @@
                 if (await this._userManager.FindByEmailAsync(Input.Email) != null)
                 {
                     this.ModelState.AddModelError("Email", "Email is already used!");
+                    return this.Page();
+                }
+
+                if (await usersService.DoesUserWithDeletedExist(Input.UserName) != null)
+                {
+                    this.ModelState.AddModelError("UserName", "UserName is already used!");
                     return this.Page();
                 }
 

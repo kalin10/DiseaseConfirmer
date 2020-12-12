@@ -18,5 +18,9 @@
         Task<string> GetProfilePictureUrlAsync(string userId);
 
         Task ChangeProfilePictureAsync(string userId, int pictureId);
+
+        Task DeleteUserAsync(string userId);
+
+        Task<bool> DoesUserWithDeletedExist(string userName);
     }
 }

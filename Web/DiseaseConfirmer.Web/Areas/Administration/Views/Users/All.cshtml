@@ -23,6 +23,7 @@
                     <th scope="col">Last Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Roles Operations</th>
+                    <th scope="col">Ban</th>
                 </tr>
             </thead>
             <tbody>
@@ -62,7 +63,11 @@
                                     </a>
                                 }
                             </td>
-                            
+                            <td>
+                                <a class="text-white btn btn-danger m-2" href="/Administration/Users/Delete?userId=@user.Id">
+                                    BAN
+                                </a>
+                            </td>
                         </tr>
                     }
 

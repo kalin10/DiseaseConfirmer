@@ -74,14 +74,11 @@
             public string Awards { get; set; }
 
             [Display(Name = "Name of category")]
+            [StringLength(100, ErrorMessage = "Invalid category!")]
             public string CategoryName { get; set; }
-
-            //public string ProfilePictureUrl { get; set; }
 
             [Display(Name = "ProfilePicture")]
             public IFormFile ProfilePicture { get; set; }
-
-            //public ChangeProfilePictureInputModel PictureModel { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -112,7 +109,7 @@
             this.FirstName = await this.usersService.GetFirstNameByIdAsync(user.Id);
             this.LastName = await this.usersService.GetLastNameByIdAsync(user.Id);
 
-            string profilePictureUrl = GlobalConstants.BaseProfilePicture; //@"https://res.cloudinary.com/dhyskq1at/image/upload/v1607544995/samples/people/blank-profile-picture-973460_640_l6mh0h.png";
+            string profilePictureUrl = GlobalConstants.BaseProfilePicture;
             if (user.ProfilePictureId.HasValue)
             {
                 profilePictureUrl = await this.usersService.GetProfilePictureUrlAsync(user.Id);
@@ -123,11 +120,6 @@
             this.Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                //PictureModel = new ChangeProfilePictureInputModel
-                //{
-                //    UserId = user.Id,
-                //},
-                //ProfilePictureUrl = profilePictureUrl,
             };
 
             if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
@@ -212,7 +204,6 @@
 
                     if (!isChanged)
                     {
-                        //this.ModelState.AddModelError("CategoryName", "Category does not exist.");
                         this.StatusMessage = "Category does not exist.";
                         return this.RedirectToPage();
                     }

@@ -27,5 +27,11 @@
 
             return this.View(model);
         }
+
+        public async Task<IActionResult> Delete(string userId)
+        {
+            await this.usersService.DeleteUserAsync(userId);
+            return this.Redirect("/Administration/Users/All");
+        }
     }
 }
