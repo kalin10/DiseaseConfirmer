@@ -1,4 +1,5 @@
-﻿@using DiseaseConfirmer.Common
+﻿@model DiseaseConfirmer.Web.ViewModels.Complaints.ComplaintInputModel
+@using DiseaseConfirmer.Common
 @{
     this.ViewData["Title"] = "Home Page";
 }
@@ -11,4 +12,19 @@
     <a asp-controller="Inquiries" asp-action="All" class="btn btn-block btn-primary">Inquiries</a>
     <p>See doctors.</p>
     <a asp-controller="Doctors" asp-action="DoctorsInCategory" class="btn btn-block btn-primary">Doctors</a>
+</div>
+
+<hr />
+<div>
+    <label>Tell us what we need to improve.</label>
+    <form asp-controller="Complaints" asp-action="Add" method="post">
+        <div>
+            <label asp-for="Content"></label>
+            <textarea name="Content" id="Content" class="form-control"></textarea>
+        </div>
+        <hr />
+        <div>
+            <input type="submit" class="btn btn-primary" value="Add complaint" />
+        </div>
+    </form>
 </div>

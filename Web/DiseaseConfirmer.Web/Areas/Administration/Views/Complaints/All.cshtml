@@ -1,0 +1,40 @@
+﻿@model DiseaseConfirmer.Web.ViewModels.Complaints.ComplaintsViewModel
+
+@foreach (var complaint in Model.Complaints)
+{
+    <div class="container-fluid mt-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <div class="media flex-wrap w-100 align-items-center">
+                            <div class="media-body ml-3">
+                                <a id="userName"><i class="fas fa-user"></i> @complaint.UserUserName</a>
+                            </div>
+                            <div class="media-body ml-3">
+                                <h3 id="heading"></h3>
+                            </div>
+                            <div id="date" class="media-body ml-3 text-muted small ml-3">
+                                <strong>
+                                    <i class="far fa-calendar-alt"></i>
+                                    <time datetime="@complaint.CreatedOn.ToString("O")"></time>
+                                </strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Issue:</strong> @complaint.Content</p>
+                    </div>
+                    <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
+                        <i></i>
+                        <div class="px-4 pt-3">
+                                <a asp-area="Administration" asp-controller="Complaints" asp-action="Delete" asp-route-id="@complaint.Id" class="btn btn-danger">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

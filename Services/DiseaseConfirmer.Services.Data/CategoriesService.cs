@@ -73,25 +73,13 @@
             }
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync<T>(int? count = null)
+        public async Task<IEnumerable<T>> GetAllAsync<T>()
         {
-            if (count.HasValue)
-            {
                 return await this.categoriesRepository
                     .All()
                     .OrderBy(x => x.Name)
-                    .Take(count.Value)
                     .To<T>()
                     .ToListAsync();
-            }
-            else
-            {
-                return await this.categoriesRepository
-                    .AllAsNoTracking()
-                    .OrderBy(x => x.Name)
-                    .To<T>()
-                    .ToListAsync();
-            }
         }
 
         public async Task<T> GetByIdAsync<T>(int id)

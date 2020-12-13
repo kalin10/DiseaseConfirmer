@@ -7,7 +7,7 @@
 
     public interface ICategoriesService
     {
-        Task<IEnumerable<T>> GetAllAsync<T>(int? count = null);
+        Task<IEnumerable<T>> GetAllAsync<T>();
 
         Task<IEnumerable<string>> GetCategoriesNames();
 

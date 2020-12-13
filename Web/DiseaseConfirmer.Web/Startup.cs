@@ -92,6 +92,7 @@
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IProfilePictureService, ProfilePictureService>();
             services.AddTransient<IVotesService, VotesService>();
+            services.AddTransient<IComplaintsService, ComplaintsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
