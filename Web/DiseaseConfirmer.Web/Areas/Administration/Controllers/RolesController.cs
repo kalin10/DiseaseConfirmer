@@ -2,9 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    using DiseaseConfirmer.Common;
     using DiseaseConfirmer.Services.Data.Contracts;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     public class RolesController : AdministrationController

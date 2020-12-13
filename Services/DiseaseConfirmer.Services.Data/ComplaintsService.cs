@@ -19,7 +19,7 @@
             this.complaintsRepository = complaintsRepository;
         }
 
-        public async Task CreateAsync(string userId, string content)
+        public async Task<Complaint> CreateAsync(string userId, string content)
         {
             var complaint = new Complaint
             {
@@ -29,6 +29,8 @@
 
             await this.complaintsRepository.AddAsync(complaint);
             await this.complaintsRepository.SaveChangesAsync();
+
+            return complaint;
         }
 
         public async Task<IEnumerable<T>> GetAllAsync<T>()

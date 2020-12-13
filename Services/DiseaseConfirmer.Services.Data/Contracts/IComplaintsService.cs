@@ -3,9 +3,11 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using DiseaseConfirmer.Data.Models;
+
     public interface IComplaintsService
     {
-        Task CreateAsync(string userId, string content);
+        Task<Complaint> CreateAsync(string userId, string content);
 
         Task<IEnumerable<T>> GetAllAsync<T>();
 

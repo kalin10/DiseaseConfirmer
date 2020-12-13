@@ -30,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\DiseaseConfirmer.Data\DiseaseConfirmer.Data.csproj" />
     <ProjectReference Include="..\..\Services\DiseaseConfirmer.Services.Data\DiseaseConfirmer.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\DiseaseConfirmer.Web.ViewModels\DiseaseConfirmer.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>
