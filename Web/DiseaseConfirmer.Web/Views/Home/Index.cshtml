@@ -3,28 +3,34 @@
 @{
     this.ViewData["Title"] = "Home Page";
 }
+@{string indexBackgroundImage = "https://res.cloudinary.com/dhyskq1at/image/upload/v1607953613/homeIndexBackground_rvv6kv.jpg"; }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Look up the info of diff diseases.</p>
-    <a asp-controller="Categories" asp-action="All" class="btn btn-block btn-primary">Categories</a>
-    <p>Check people's Inquiries and get opinion about your problem.</p>
-    <a asp-controller="Inquiries" asp-action="All" class="btn btn-block btn-primary">Inquiries</a>
-    <p>See doctors.</p>
-    <a asp-controller="Doctors" asp-action="DoctorsInCategory" class="btn btn-block btn-primary">Doctors</a>
-</div>
-
-<hr />
-<div>
-    <label>Tell us what we need to improve.</label>
-    <form asp-controller="Complaints" asp-action="Add" method="post">
-        <div>
-            <label asp-for="Content"></label>
-            <textarea name="Content" id="Content" class="form-control"></textarea>
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body id="backgroundImage">
+    <div>
+        <div class="text-center">
+            <h1 class="display-4" style="font-size: 96px"><strong>Welcome to @GlobalConstants.SystemName!</strong></h1>
         </div>
+
+        <p style="margin-top: 200px"></p>
         <hr />
         <div>
-            <input type="submit" class="btn btn-primary" value="Add complaint" />
+            <label style="font-size: 30px"><strong>Tell us what we need to improve.</strong></label>
+            <form asp-controller="Complaints" asp-action="Add" method="post">
+                <div>
+                    <textarea asp-for="Content" id="Content" class="form-control"></textarea>
+                </div>
+                <hr />
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Add complaint" />
+                </div>
+            </form>
         </div>
-    </form>
-</div>
+    </div>
+</body>
+</html>
+

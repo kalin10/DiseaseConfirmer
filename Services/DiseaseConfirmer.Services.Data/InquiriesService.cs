@@ -61,7 +61,7 @@
             {
                 return await this.inquiriesRepository
                     .All()
-                    .OrderBy(x => x.CreatedOn)
+                    .OrderByDescending(x => x.CreatedOn)
                     .Skip((page - 1) * itemsPerPage)
                     .Take(itemsPerPage)
                     .To<T>()

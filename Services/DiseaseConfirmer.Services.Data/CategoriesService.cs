@@ -120,7 +120,7 @@
         public async Task<Category> GetCategoryById(int id)
         {
             Category category = await this.categoriesRepository
-                .All()
+                .AllWithDeleted()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return category;

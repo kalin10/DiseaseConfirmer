@@ -30,13 +30,19 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="All">Diseases</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Doctors" asp-action="DoctorsInCategory">Doctors</a>
+                        </li>
+                        <li class="nav-item">
                             <div class="dropdown" data-hover="dropdown">
                                 <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
                                     Inquiries <span class="caret"></span>
                                 </button>
-                                <ul class="dropdown-menu" role="menu" style="margin-top: 0">
-                                    <li><a href="/Inquiries/AllById">My Inquiries</a></li>
-                                    <li><a href="/Inquiries/All">All Inquiries</a></li>
+                                <ul id="dropdownContent" class="dropdown-menu" role="menu" style="margin-top: 0">
+                                    <li><a asp-controller="Inquiries" asp-action="AllById">My Inquiries</a></li>
+                                    <li><a asp-controller="Inquiries" asp-action="All">All Inquiries</a></li>
                                 </ul>
                             </div>
                         </li>

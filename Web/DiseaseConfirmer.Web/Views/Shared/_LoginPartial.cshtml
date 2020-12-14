@@ -13,7 +13,16 @@
         if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Administration" asp-controller="Dashboard" asp-action="Index" title="Admin">Admin</a>
+                <div class="dropdown" data-hover="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" data-hover="dropdown">
+                        Admin <span class="caret"></span>
+                    </button>
+                    <ul id="dropdownContent" class="dropdown-menu" role="menu" style="margin-top: 0">
+                        <li><a asp-area="Administration" asp-controller="Users" asp-action="All">Users</a></li>
+                        <li><a asp-area="Administration" asp-controller="Categories" asp-action="All">Categories</a></li>
+                        <li><a asp-area="Administration" asp-controller="Complaints" asp-action="All">Complaints</a></li>
+                    </ul>
+                </div>
             </li>
         }
         <li class="nav-item">
