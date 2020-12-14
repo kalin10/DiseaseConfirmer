@@ -23,7 +23,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View(input);
+                return this.Redirect("/Home/Index");
             }
 
             var claimsIdentity = (ClaimsIdentity)this.User.Identity;

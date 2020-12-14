@@ -7,10 +7,11 @@
 
     public class CategoryCreateInputModel : IMapTo<Category>
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required(minimum 4 characters)")]
+        [MinLength(4)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
     }
 }

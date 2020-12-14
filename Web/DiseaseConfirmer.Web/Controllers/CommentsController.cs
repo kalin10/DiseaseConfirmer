@@ -21,6 +21,11 @@
         [Authorize]
         public async Task<IActionResult> Create(CreateCommentInputModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.RedirectToAction("ById", "Inquiries", new { id = input.InquiryId });
+            }
+
             var parentId =
                 input.ParentId == 0 ?
                     (int?)null :

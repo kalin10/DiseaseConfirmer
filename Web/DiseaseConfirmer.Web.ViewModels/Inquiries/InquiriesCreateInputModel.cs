@@ -7,10 +7,10 @@
 
     public class InquiriesCreateInputModel : IMapTo<Inquiry>
     {
-        [Required]
+        [Required(ErrorMessage = "Heading is required")]
         public string Heading { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Symptoms are required")]
         public string Symptoms { get; set; }
 
         public string DetailedInformation { get; set; }

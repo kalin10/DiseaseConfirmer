@@ -7,19 +7,18 @@
 
     public class DiseaseCreateInputModel : IMapTo<Disease>
     {
-        [Required]
+        [Required(ErrorMessage = "Name is required(minimum 4 characters)")]
+        [MinLength(4)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Symptoms are required")]
         public string Symptoms { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Description is required")]
         public string Description { get; set; }
 
-        [Required]
         public string Тreatment { get; set; }
 
-        [Required]
         public string Cause { get; set; }
     }
 }

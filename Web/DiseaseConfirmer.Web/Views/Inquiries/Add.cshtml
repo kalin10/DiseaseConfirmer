@@ -9,16 +9,19 @@
     <div>
         <label asp-for="Heading">Heading:</label>
         <textarea asp-for="Heading" class="form-control"></textarea>
+        <span asp-validation-for="Heading" class="text-danger"></span>
     </div>
 
     <div>
         <label asp-for="Symptoms">Symptoms:</label>
         <textarea asp-for="Symptoms" class="form-control"></textarea>
+        <span asp-validation-for="Symptoms" class="text-danger"></span>
     </div>
 
     <div>
         <label asp-for="DetailedInformation">Detailed Information: (Your opinion about what could have cause it, or your recent activities.)</label>
         <textarea asp-for="DetailedInformation" class="form-control"></textarea>
+        <span asp-validation-for="DetailedInformation" class="text-danger"></span>
     </div>
 
     <div>
