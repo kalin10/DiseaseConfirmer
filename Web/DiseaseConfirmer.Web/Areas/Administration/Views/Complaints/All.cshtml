@@ -1,5 +1,9 @@
 ﻿@model DiseaseConfirmer.Web.ViewModels.Complaints.ComplaintsViewModel
 
+@{
+    this.ViewData["Title"] = "Complaints";
+}
+
 @foreach (var complaint in Model.Complaints)
 {
     <div class="container-fluid mt-100">
@@ -28,9 +32,9 @@
                     <div class="card-footer d-flex flex-wrap justify-content-between align-items-center px-0 pt-0 pb-3">
                         <i></i>
                         <div class="px-4 pt-3">
-                                <a asp-area="Administration" asp-controller="Complaints" asp-action="Delete" asp-route-id="@complaint.Id" class="btn btn-danger">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
+                            <a asp-area="Administration" asp-controller="Complaints" asp-action="Delete" asp-route-id="@complaint.Id" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
                         </div>
                     </div>
                 </div>

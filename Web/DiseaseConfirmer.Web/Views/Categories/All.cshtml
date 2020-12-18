@@ -2,14 +2,14 @@
 
 @model DiseaseConfirmer.Web.ViewModels.Categories.CategoriesViewModel
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = "Categories";
 }
 
 @{ var name = this.User.Identity.Name;}
 
 <div class="text-center">
     <h1 class="display-4">
-        Welcome to @GlobalConstants.SystemName!
+        Categories
         @if (this.User.IsInRole(GlobalConstants.DoctorRoleName))
         {
             <a id="floatRight" asp-area="Doctors" asp-controller="Categories" asp-action="Add" class="btn btn-secondary btn-sm">Create Category</a>

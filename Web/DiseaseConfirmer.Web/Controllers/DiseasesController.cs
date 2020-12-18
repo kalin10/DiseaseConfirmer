@@ -45,7 +45,7 @@
                 return this.View(input);
             }
 
-            return this.Redirect("/Categories/All");
+            return this.RedirectToAction("ByName", "Categories", new { name = categoryName });
         }
 
         [Authorize(Roles = "Administrator")]

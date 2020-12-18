@@ -40,6 +40,8 @@
 
         public DbSet<Complaint> Complaints { get; set; }
 
+        public DbSet<Message> Messages { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -79,6 +81,12 @@
                 .HasOne(p => p.User)
                 .WithOne(u => u.ProfilePicture)
                 .HasForeignKey<ApplicationUser>(u => u.ProfilePictureId);
+
+            builder
+                .Entity<Message>()
+                .HasOne(m => m.Sender)
+                .WithMany(s => s.Messages)
+                .HasForeignKey(m => m.SenderId);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 

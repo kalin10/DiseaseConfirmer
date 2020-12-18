@@ -98,7 +98,7 @@
                     return this.Page();
                 }
 
-                if (await usersService.DoesUserWithDeletedExist(Input.UserName) != null)
+                if (await this.usersService.DoesUserWithDeletedExist(this.Input.UserName))
                 {
                     this.ModelState.AddModelError("UserName", "UserName is already used!");
                     return this.Page();

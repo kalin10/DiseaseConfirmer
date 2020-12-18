@@ -14,6 +14,7 @@
     using DiseaseConfirmer.Services.Data.Contracts;
     using DiseaseConfirmer.Services.Mapping;
     using DiseaseConfirmer.Services.Messaging;
+    using DiseaseConfirmer.Web.Hubs;
     using DiseaseConfirmer.Web.ViewModels;
 
     using Microsoft.AspNetCore.Builder;
@@ -60,6 +61,7 @@
             {
                 options.HeaderName = "X-CSRF-TOKEN";
             });
+            services.AddSignalR();
             services.AddRazorPages();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -93,6 +95,7 @@
             services.AddTransient<IProfilePictureService, ProfilePictureService>();
             services.AddTransient<IVotesService, VotesService>();
             services.AddTransient<IComplaintsService, ComplaintsService>();
+            services.AddTransient<IMessagesService, MessagesService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -131,11 +134,11 @@
             app.UseEndpoints(
                 endpoints =>
                     {
+                        endpoints.MapHub<ChatHub>("/chat");
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                        endpoints.MapControllerRoute("categories", "f/{name:minlength(4)}", new { controller = "Categories", action = "ByName" });
+                        endpoints.MapControllerRoute("categories", "Category/{name:minlength(4)}", new { controller = "Categories", action = "ByName" });
                         endpoints.MapControllerRoute("doctorsByCategories", "Doctors/DoctorsInCategory/{categoryName:minlength(3)}", new { controller = "Doctors", action = "DoctorsInCategory" });
-                        //endpoints.MapControllerRoute("diseaseCategory", "d/{name:minlength(3)}", new { controller = "Diseases", action = "ByName" });
-                        endpoints.MapControllerRoute("addDisease", "d/{categoryName:minlength(3)}/Add", new { controller = "Diseases", action = "Add" });
+                        endpoints.MapControllerRoute("addDisease", "Diseases/{categoryName:minlength(3)}/Add", new { controller = "Diseases", action = "Add" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });

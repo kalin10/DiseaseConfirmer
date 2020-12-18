@@ -48,7 +48,7 @@
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.complaintsRepository.Delete(complaint);
+            this.complaintsRepository.HardDelete(complaint);
             await this.complaintsRepository.SaveChangesAsync();
         }
     }

@@ -18,6 +18,7 @@ namespace DiseaseConfirmer.Data.Models
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.Inquiries = new HashSet<Inquiry>();
             this.Comments = new HashSet<Comment>();
+            this.Messages = new HashSet<Message>();
         }
 
         // Audit info
@@ -57,5 +58,7 @@ namespace DiseaseConfirmer.Data.Models
         public virtual ICollection<Inquiry> Inquiries { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<Message> Messages { get; set; }
     }
 }

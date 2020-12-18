@@ -17,6 +17,6 @@
              ? this.Description.Substring(0, 50) + "..."
             : this.Description;
 
-        public string Url => $"/f/{this.Name?.Replace(' ', '-')}";
+        public string Url => $"/Category/{this.Name?.Replace(' ', '-')}";
     }
 }

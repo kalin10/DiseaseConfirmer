@@ -3,7 +3,7 @@
 @using DiseaseConfirmer.Common;
 
 @{
-    this.ViewData["Title"] = "Home Page";
+    this.ViewData["Title"] = "Inquiry";
     async Task DisplayComments(int? parentId)
     {
         var comments = this.Model.Comments.Where(x => x.ParentId == parentId);
@@ -64,11 +64,6 @@
     }
 }
 @{ var name = this.User.Identity.Name;}
-<div class="text-center">
-    <h1 class="display-4">
-        Welcome to @GlobalConstants.SystemName!
-    </h1>
-</div>
 
 <div class="container-fluid mt-100">
     <div class="row">
