@@ -1,0 +1,58 @@
+﻿[
+  {
+    "Name": "Carcinoid",
+    "Description": "A carcinoid is a slow-growing type of neuroendocrine tumor originating in the cells of the neuroendocrine system.",
+    "Symptoms": "Chest pain.Wheezing.Shortness of breath.Diarrhea.Redness or a feeling of warmth in your face and neck (skin flushing).",
+    "Cause": "Older age.Sex.Family history.",
+    "Тreatment": "Surgery.Drugs that block cancer cells from secreting hormones.",
+    "CategoryId": 6
+  },
+  {
+    "Name": "Leukemia",
+    "Description": "Cancer that starts in the bone marrow.",
+    "Symptoms": "Bleeding from the gums.Bone pain.Frequent infections.Frequent or severe nosebleeds.",
+    "Cause": "Previous cancer treatment.Exposure to radiation.Genetic disorders.",
+    "Тreatment": "Induction therapy.Consolidation therapy.Maintenance therapy.Preventive treatment to the spinal cord.",
+    "CategoryId": 6
+  },
+  {
+    "Name": "Brain Tumor",
+    "Description": "A brain tumor is a mass or growth of abnormal cells in your brain.",
+    "Symptoms": "headaches,that gradually become more frequent and more severe.Unexplained nausea or vomiting.Vision problems, such as blurred vision, double vision or loss of peripheral vision.Gradual loss of sensation or movement in an arm or a leg.Difficulty with balance.",
+    "Cause": "Exposure to radiation.Family history of brain tumors.",
+    "Тreatment": "Surgery.Radiation therapy.Radiosurgery.Chemotherapy.Targeted drug therapy.",
+    "CategoryId": 6
+  },
+  {
+    "Name": "Bladder cancer",
+    "Description": "Bladder cancer is any of several types of cancer arising from the tissues of the urinary bladder.",
+    "Symptoms": "Frequent urination.Painful urination.Back pain.",
+    "Cause": "Smoking.Increasing age.Being male.Exposure to certain chemicals.Previous cancer treatment.Chronic bladder inflammation.",
+    "Тreatment": "No information available.",
+    "CategoryId": 6
+  },
+  {
+    "Name": "COVID-19 pandemic",
+    "Description": "The COVID-19 pandemic is an ongoing pandemic, caused by severe acute respiratory syndrome coronavirus 2 (SARS-CoV-2).",
+    "Symptoms": "Fever.Cough.Tiredness.Sore throat.Muscle aches.Shortness of breath or difficulty breathing.Chest pain.",
+    "Cause": "Infection with the new coronavirus (severe acute respiratory syndrome coronavirus 2, or SARS-CoV-2) causes coronavirus disease 2019 (COVID-19).",
+    "Тreatment": "Pain relievers (ibuprofen or acetaminophen).Cough syrup or medication.Rest.Fluid intake.",
+    "CategoryId": 3
+  },
+  {
+    "Name": "novel bunya outbreak",
+    "Description": "Novel bunya virus infections increase significantly in summer when the ticks breed actively.",
+    "Symptoms": "The early symptoms are fatigue and fever; sometimes there will be a rash.",
+    "Cause": "Novel bunya virus infection caused by tick bites can pass from person to person.",
+    "Тreatment": "No information available.",
+    "CategoryId": 3
+  },
+  {
+    "Name": "Parkinson's disease",
+    "Description": "Parkinson's disease (PD) is a neurological condition that typically causes tremor and/or stiffness in movement.",
+    "Symptoms": "Symptoms start gradually, sometimes starting with a barely noticeable tremor in just one hand. Tremors are common, but the disorder also commonly causes stiffness or slowing of movement.",
+    "Cause": "Family history.It is speculated that there is gene making a famili which has has a person with this disease, more likely to inherit it.",
+    "Тreatment": "No information available.",
+    "CategoryId": 2
+  }
+]

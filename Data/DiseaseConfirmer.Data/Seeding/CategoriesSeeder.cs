@@ -24,7 +24,6 @@
                 ("Gynaecologic Disorders", "Gynecologic diseases in general are diseases that involved the female reproductive track."),
                 ("Skin Conditions", "A skin condition, also known as cutaneous condition, is any medical condition that affects the integumentary system—the organ system that encloses the body and includes skin, hair, nails, and related muscle and glands."),
                 ("Tumors", "A tumor is an abnormal growth of cells that serves no purpose."),
-                ("Rear Diseases", "A peculiar disease which has a very low chance to appear."),
             };
 
             foreach (var category in categories)

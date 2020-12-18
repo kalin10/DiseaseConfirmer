@@ -2,10 +2,14 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
     using DiseaseConfirmer.Data.Models;
+    using DiseaseConfirmer.Data.Seeding.Dtos;
+    using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json;
 
     public class DiseasesSeeder : ISeeder
     {
@@ -16,18 +20,12 @@
                 return;
             }
 
-            var diseases = new List<(string Name, string Description, string Symptoms, string Тreatment, string Cause)>
-            {
-                ("Brain Tumor", "A brain tumor is a mass or growth of abnormal cells in your brain.", "Symptoms", "Тreatment", "Cause"),
-                ("Leukemia", "Cancer that starts in the bone marrow.", "Symptoms", "Тreatment", "Cause"),
-                ("Carcinoid", "A carcinoid is a slow-growing type of neuroendocrine tumor originating in the cells of the neuroendocrine system. ", "Symptoms", "Тreatment", "Cause"),
-                ("Bladder cancer", "Bladder cancer is any of several types of cancer arising from the tissues of the urinary bladder.", "Symptoms", "Тreatment", "Cause"),
-            };
-
-            var tummorsCategory = dbContext.Categories.FirstOrDefault(x => x.Name == "Tumors");
+            var diseases = JsonConvert.DeserializeObject<DiseaseDto[]>(File.ReadAllText(@"../../Data/DiseaseConfirmer.Data/Seeding/Data/Diseases.json"));
 
             foreach (var disease in diseases)
             {
+                var tummorsCategory = await dbContext.Categories.FirstOrDefaultAsync(x => x.Id == disease.CategoryId);
+
                 await dbContext.Diseases.AddAsync(new Disease
                 {
                     Name = disease.Name,
