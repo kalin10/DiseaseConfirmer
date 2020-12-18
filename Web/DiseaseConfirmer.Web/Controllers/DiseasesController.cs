@@ -33,7 +33,7 @@
                 return this.View(input);
             }
 
-            var category = await this.categoriesService.GetCategoryByName(categoryName);
+            var category = await this.categoriesService.GetCategoryByName(categoryName.Replace('-',' '));
             var categoryId = category.Id;
 
             var diseaseId = await this.diseasesService

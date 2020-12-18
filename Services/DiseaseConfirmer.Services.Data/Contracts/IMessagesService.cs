@@ -10,5 +10,7 @@
         Task<Message> Create(string senderId, string message);
 
         Task<IEnumerable<T>> MessagesFromToday<T>();
+
+        Task DeleteOlderMessages();
     }
 }

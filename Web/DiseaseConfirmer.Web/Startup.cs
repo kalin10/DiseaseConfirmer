@@ -1,5 +1,6 @@
 ﻿namespace DiseaseConfirmer.Web
 {
+    using Hangfire;
     using System.Reflection;
     using CloudinaryDotNet;
     using DiseaseConfirmer.Data;
@@ -25,6 +26,8 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using Hangfire.SqlServer;
+    using System;
 
     public class Startup
     {
@@ -44,6 +47,22 @@
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddHangfire(config =>
+            {
+                config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSqlServerStorage(
+                this.configuration.GetConnectionString("DefaultConnection"),
+                new SqlServerStorageOptions
+                {
+                    PrepareSchemaIfNecessary = true,
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true,
+                });
+            });
+            services.AddHangfireServer();
 
             services.Configure<CookiePolicyOptions>(
                 options =>
@@ -109,7 +128,12 @@
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
+                this.DeleteMessages();
             }
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
 
             if (env.IsDevelopment())
             {
@@ -142,6 +166,11 @@
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapRazorPages();
                     });
+        }
+
+        private void DeleteMessages()
+        {
+            RecurringJob.AddOrUpdate<MessagesService>("MessagesService", x => x.DeleteOlderMessages(), Cron.Daily);
         }
     }
 }

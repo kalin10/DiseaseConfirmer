@@ -1,4 +1,5 @@
 ﻿@using DiseaseConfirmer.Common
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,7 +42,11 @@
                                     Inquiries <span class="caret"></span>
                                 </button>
                                 <ul id="dropdownContent" class="dropdown-menu" role="menu" style="margin-top: 0">
-                                    <li><a asp-controller="Inquiries" asp-action="AllById">My Inquiries</a></li>
+                                    @if (this.User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a asp-controller="Inquiries" asp-action="AllById">My Inquiries</a></li>
+                                    }
+
                                     <li><a asp-controller="Inquiries" asp-action="All">All Inquiries</a></li>
                                 </ul>
                             </div>

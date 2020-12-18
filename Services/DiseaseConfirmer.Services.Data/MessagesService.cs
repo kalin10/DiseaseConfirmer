@@ -34,6 +34,21 @@
             return message;
         }
 
+        public async Task DeleteOlderMessages()
+        {
+            var messages = await this.messagesRepositoy
+                .All()
+                .Where(m => m.CreatedOn.Date != DateTime.Today)
+                .ToListAsync();
+
+            foreach (var message in messages)
+            {
+                this.messagesRepositoy.HardDelete(message);
+            }
+
+            await this.messagesRepositoy.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<T>> MessagesFromToday<T>()
         {
             return await this.messagesRepositoy
